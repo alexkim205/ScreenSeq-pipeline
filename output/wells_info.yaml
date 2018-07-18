@@ -1,0 +1,604 @@
+D12_R3:
+  A:
+  - barcode: AGTCAA_GTGAAA
+    target_gene: Ctcf_1
+  - barcode: AGTTCC_GTGGCC
+    target_gene: Rnf2_1
+  - barcode: ATGTCA_GTTTCG
+    target_gene: Ehmt2_1
+  - barcode: CCGTCC_CGTACG
+    target_gene: Parp1_1
+  - barcode: GTAGAG_GAGTGG
+    target_gene: Parp1_2
+  - barcode: GTCCGC_GGTAGC
+    target_gene: Zfp57_1
+  - barcode: GTGAAA_AGTCAA
+    target_gene: Atf7ip_1
+  - barcode: GTGGCC_AGTTCC
+    target_gene: Hdac2_1
+  - barcode: GTTTCG_ATGTCA
+    target_gene: Kmt5a_1
+  - barcode: CGTACG_CCGTCC
+    target_gene: Suv39h1_1
+  - barcode: GAGTGG_GTAGAG
+    target_gene: Smchd1_1
+  - barcode: GGTAGC_GTCCGC
+    target_gene: Sirt1_1
+  B:
+  - barcode: AGTCAA_CACGAT
+    target_gene: Atrx_1
+  - barcode: AGTTCC_CACTCA
+    target_gene: Rad21_1
+  - barcode: ATGTCA_CAGGCG
+    target_gene: Eed_1
+  - barcode: CCGTCC_CATGGC
+    target_gene: Hdac1_1
+  - barcode: GTAGAG_CATTTT
+    target_gene: Dnmt1_1
+  - barcode: GTCCGC_CCAACA
+    target_gene: Eed_2
+  - barcode: GTGAAA_ACTGAT
+    target_gene: Rrm2_1
+  - barcode: GTGGCC_ATGAGC
+    target_gene: Atrx_2
+  - barcode: GTTTCG_ATTCCT
+    target_gene: Dnmt1_2
+  - barcode: CGTACG_CAAAAG
+    target_gene: Sirt1_2
+  - barcode: GAGTGG_CAACTA
+    target_gene: Parp1_3
+  - barcode: GGTAGC_CACCGG
+    target_gene: Hdac2_2
+  C:
+  - barcode: AGTCAA_TACAGC
+    target_gene: Smchd1_2
+  - barcode: AGTTCC_TATAAT
+    target_gene: Ehmt2_2
+  - barcode: ATGTCA_TCATTC
+    target_gene: Rrm2_2
+  - barcode: CCGTCC_TCCCGA
+    target_gene: Rrm2_3
+  - barcode: GTAGAG_TCGAAG
+    target_gene: Smchd1_3
+  - barcode: GTCCGC_TCGGCA
+    target_gene: Rrm2_4
+  - barcode: GTGAAA_CGGAAT
+    target_gene: Kmt5a_2
+  - barcode: GTGGCC_CTAGCT
+    target_gene: LUCIFERASE_1
+  - barcode: GTTTCG_CTATAC
+    target_gene: Dnmt1_3
+  - barcode: CGTACG_CTCAGA
+    target_gene: Dnmt1_4
+  - barcode: GAGTGG_GACGAC
+    target_gene: Rad21_2
+  - barcode: GGTAGC_TAATCG
+    target_gene: Ring1_1
+  D:
+  - barcode: ACTGAT_GTGAAA
+    target_gene: Ehmt2_3
+  - barcode: ATGAGC_GTGGCC
+    target_gene: Rrm2_5
+  - barcode: ATTCCT_GTTTCG
+    target_gene: Ring1_2
+  - barcode: CAAAAG_CGTACG
+    target_gene: Kmt5a_3
+  - barcode: CAACTA_GAGTGG
+    target_gene: Ehmt2_4
+  - barcode: CACCGG_GGTAGC
+    target_gene: Ctcf_2
+  - barcode: CACGAT_AGTCAA
+    target_gene: Suv39h1_2
+  - barcode: CACTCA_AGTTCC
+    target_gene: Atrx_3
+  - barcode: CAGGCG_ATGTCA
+    target_gene: GFP_1
+  - barcode: CATGGC_CCGTCC
+    target_gene: Hdac2_3
+  - barcode: CATTTT_GTAGAG
+    target_gene: Hdac2_4
+  - barcode: CCAACA_GTCCGC
+    target_gene: Smchd1_4
+  E:
+  - barcode: ACTGAT_CACGAT
+    target_gene: Eed_3
+  - barcode: ATGAGC_CACTCA
+    target_gene: Atf7ip_2
+  - barcode: ATTCCT_CAGGCG
+    target_gene: Eed_4
+  - barcode: CAAAAG_CATGGC
+    target_gene: Rad21_3
+  - barcode: CAACTA_CATTTT
+    target_gene: Hdac1_2
+  - barcode: CACCGG_CCAACA
+    target_gene: Rad21_4
+  - barcode: CACGAT_ACTGAT
+    target_gene: Ehmt2_5
+  - barcode: CACTCA_ATGAGC
+    target_gene: Rnf2_2
+  - barcode: CAGGCG_ATTCCT
+    target_gene: Kmt5a_4
+  - barcode: CATGGC_CAAAAG
+    target_gene: Sirt1_3
+  - barcode: CATTTT_CAACTA
+    target_gene: Zfp57_2
+  - barcode: CCAACA_CACCGG
+    target_gene: Ring1_3
+  F:
+  - barcode: ACTGAT_TACAGC
+    target_gene: Hdac1_3
+  - barcode: ATGAGC_TATAAT
+    target_gene: Sirt1_4
+  - barcode: ATTCCT_TCATTC
+    target_gene: Atf7ip_3
+  - barcode: CAAAAG_TCCCGA
+    target_gene: Parp1_4
+  - barcode: CAACTA_TCGAAG
+    target_gene: Dnmt1_5
+  - barcode: CACCGG_TCGGCA
+    target_gene: Ctcf_3
+  - barcode: CACGAT_CGGAAT
+    target_gene: Zfp57_3
+  - barcode: CACTCA_CTAGCT
+    target_gene: Ctcf_4
+  - barcode: CAGGCG_CTATAC
+    target_gene: Rad21_5
+  - barcode: CATGGC_CTCAGA
+    target_gene: Rnf2_3
+  - barcode: CATTTT_GACGAC
+    target_gene: Hdac1_4
+  - barcode: CCAACA_TAATCG
+    target_gene: Suv39h1_3
+  G:
+  - barcode: CGGAAT_GTGAAA
+    target_gene: Suv39h1_4
+  - barcode: CTAGCT_GTGGCC
+    target_gene: Zfp57_4
+  - barcode: CTATAC_GTTTCG
+    target_gene: Smchd1_5
+  - barcode: CTCAGA_CGTACG
+    target_gene: Atf7ip_4
+  - barcode: GACGAC_GAGTGG
+    target_gene: Ring1_4
+  - barcode: TAATCG_GGTAGC
+    target_gene: Atf7ip_5
+  - barcode: TACAGC_AGTCAA
+    target_gene: Eed_5
+  - barcode: TATAAT_AGTTCC
+    target_gene: Ctcf_5
+  - barcode: TCATTC_ATGTCA
+    target_gene: Sirt1_5
+  - barcode: TCCCGA_CCGTCC
+    target_gene: Zfp57_5
+  - barcode: TCGAAG_GTAGAG
+    target_gene: Hdac2_5
+  - barcode: TCGGCA_GTCCGC
+    target_gene: Kmt5a_5
+  H:
+  - barcode: CGGAAT_CACGAT
+    target_gene: Ring1_5
+  - barcode: CTAGCT_CACTCA
+    target_gene: Atrx_4
+  - barcode: CTATAC_CAGGCG
+    target_gene: Parp1_5
+  - barcode: CTCAGA_CATGGC
+    target_gene: Rnf2_4
+  - barcode: GACGAC_CATTTT
+    target_gene: Atrx_5
+  - barcode: TAATCG_CCAACA
+    target_gene: Suv39h1_5
+  - barcode: TACAGC_ACTGAT
+    target_gene: Hdac1_5
+  - barcode: TATAAT_ATGAGC
+    target_gene: Rnf2_5
+  - barcode: TCATTC_ATTCCT
+    target_gene: NA_
+  - barcode: TCCCGA_CAAAAG
+    target_gene: NA_
+  - barcode: TCGAAG_CAACTA
+    target_gene: NA_
+  - barcode: TCGGCA_CACCGG
+    target_gene: NA_
+D19_R2:
+  A:
+  - barcode: AGTCAA_AGTCAA
+    target_gene: Ctcf_1
+  - barcode: AGTTCC_AGTTCC
+    target_gene: Rnf2_1
+  - barcode: ATGTCA_ATGTCA
+    target_gene: Ehmt2_1
+  - barcode: CCGTCC_CCGTCC
+    target_gene: Parp1_1
+  - barcode: GTAGAG_GTAGAG
+    target_gene: Parp1_2
+  - barcode: GTCCGC_GTCCGC
+    target_gene: Zfp57_1
+  - barcode: GTGAAA_GTGAAA
+    target_gene: Atf7ip_1
+  - barcode: GTGGCC_GTGGCC
+    target_gene: Hdac2_1
+  - barcode: GTTTCG_GTTTCG
+    target_gene: Kmt5a_1
+  - barcode: CGTACG_CGTACG
+    target_gene: Suv39h1_1
+  - barcode: GAGTGG_GAGTGG
+    target_gene: Smchd1_1
+  - barcode: GGTAGC_GGTAGC
+    target_gene: Sirt1_1
+  B:
+  - barcode: AGTCAA_ACTGAT
+    target_gene: Atrx_1
+  - barcode: AGTTCC_ATGAGC
+    target_gene: Rad21_1
+  - barcode: ATGTCA_ATTCCT
+    target_gene: Eed_1
+  - barcode: CCGTCC_CAAAAG
+    target_gene: Hdac1_1
+  - barcode: GTAGAG_CAACTA
+    target_gene: Dnmt1_1
+  - barcode: GTCCGC_CACCGG
+    target_gene: Eed_2
+  - barcode: GTGAAA_CACGAT
+    target_gene: Rrm2_1
+  - barcode: GTGGCC_CACTCA
+    target_gene: Atrx_2
+  - barcode: GTTTCG_CAGGCG
+    target_gene: Dnmt1_2
+  - barcode: CGTACG_CATGGC
+    target_gene: Sirt1_2
+  - barcode: GAGTGG_CATTTT
+    target_gene: Parp1_3
+  - barcode: GGTAGC_CCAACA
+    target_gene: Hdac2_2
+  C:
+  - barcode: AGTCAA_CGGAAT
+    target_gene: Smchd1_2
+  - barcode: AGTTCC_CTAGCT
+    target_gene: Ehmt2_2
+  - barcode: ATGTCA_CTATAC
+    target_gene: Rrm2_2
+  - barcode: CCGTCC_CTCAGA
+    target_gene: Rrm2_3
+  - barcode: GTAGAG_GACGAC
+    target_gene: Smchd1_3
+  - barcode: GTCCGC_TAATCG
+    target_gene: Rrm2_4
+  - barcode: GTGAAA_TACAGC
+    target_gene: Kmt5a_2
+  - barcode: GTGGCC_TATAAT
+    target_gene: LUCIFERASE_1
+  - barcode: GTTTCG_TCATTC
+    target_gene: Dnmt1_3
+  - barcode: CGTACG_TCCCGA
+    target_gene: Dnmt1_4
+  - barcode: GAGTGG_TCGAAG
+    target_gene: Rad21_2
+  - barcode: GGTAGC_TCGGCA
+    target_gene: Ring1_1
+  D:
+  - barcode: ACTGAT_AGTCAA
+    target_gene: Ehmt2_3
+  - barcode: ATGAGC_AGTTCC
+    target_gene: Rrm2_5
+  - barcode: ATTCCT_ATGTCA
+    target_gene: Ring1_2
+  - barcode: CAAAAG_CCGTCC
+    target_gene: Kmt5a_3
+  - barcode: CAACTA_GTAGAG
+    target_gene: Ehmt2_4
+  - barcode: CACCGG_GTCCGC
+    target_gene: Ctcf_2
+  - barcode: CACGAT_GTGAAA
+    target_gene: Suv39h1_2
+  - barcode: CACTCA_GTGGCC
+    target_gene: Atrx_3
+  - barcode: CAGGCG_GTTTCG
+    target_gene: GFP_1
+  - barcode: CATGGC_CGTACG
+    target_gene: Hdac2_3
+  - barcode: CATTTT_GAGTGG
+    target_gene: Hdac2_4
+  - barcode: CCAACA_GGTAGC
+    target_gene: Smchd1_4
+  E:
+  - barcode: ACTGAT_ACTGAT
+    target_gene: Eed_3
+  - barcode: ATGAGC_ATGAGC
+    target_gene: Atf7ip_2
+  - barcode: ATTCCT_ATTCCT
+    target_gene: Eed_4
+  - barcode: CAAAAG_CAAAAG
+    target_gene: Rad21_3
+  - barcode: CAACTA_CAACTA
+    target_gene: Hdac1_2
+  - barcode: CACCGG_CACCGG
+    target_gene: Rad21_4
+  - barcode: CACGAT_CACGAT
+    target_gene: Ehmt2_5
+  - barcode: CACTCA_CACTCA
+    target_gene: Rnf2_2
+  - barcode: CAGGCG_CAGGCG
+    target_gene: Kmt5a_4
+  - barcode: CATGGC_CATGGC
+    target_gene: Sirt1_3
+  - barcode: CATTTT_CATTTT
+    target_gene: Zfp57_2
+  - barcode: CCAACA_CCAACA
+    target_gene: Ring1_3
+  F:
+  - barcode: ACTGAT_CGGAAT
+    target_gene: Hdac1_3
+  - barcode: ATGAGC_CTAGCT
+    target_gene: Sirt1_4
+  - barcode: ATTCCT_CTATAC
+    target_gene: Atf7ip_3
+  - barcode: CAAAAG_CTCAGA
+    target_gene: Parp1_4
+  - barcode: CAACTA_GACGAC
+    target_gene: Dnmt1_5
+  - barcode: CACCGG_TAATCG
+    target_gene: Ctcf_3
+  - barcode: CACGAT_TACAGC
+    target_gene: Zfp57_3
+  - barcode: CACTCA_TATAAT
+    target_gene: Ctcf_4
+  - barcode: CAGGCG_TCATTC
+    target_gene: Rad21_5
+  - barcode: CATGGC_TCCCGA
+    target_gene: Rnf2_3
+  - barcode: CATTTT_TCGAAG
+    target_gene: Hdac1_4
+  - barcode: CCAACA_TCGGCA
+    target_gene: Suv39h1_3
+  G:
+  - barcode: CGGAAT_AGTCAA
+    target_gene: Suv39h1_4
+  - barcode: CTAGCT_AGTTCC
+    target_gene: Zfp57_4
+  - barcode: CTATAC_ATGTCA
+    target_gene: Smchd1_5
+  - barcode: CTCAGA_CCGTCC
+    target_gene: Atf7ip_4
+  - barcode: GACGAC_GTAGAG
+    target_gene: Ring1_4
+  - barcode: TAATCG_GTCCGC
+    target_gene: Atf7ip_5
+  - barcode: TACAGC_GTGAAA
+    target_gene: Eed_5
+  - barcode: TATAAT_GTGGCC
+    target_gene: Ctcf_5
+  - barcode: TCATTC_GTTTCG
+    target_gene: Sirt1_5
+  - barcode: TCCCGA_CGTACG
+    target_gene: Zfp57_5
+  - barcode: TCGAAG_GAGTGG
+    target_gene: Hdac2_5
+  - barcode: TCGGCA_GGTAGC
+    target_gene: Kmt5a_5
+  H:
+  - barcode: CGGAAT_ACTGAT
+    target_gene: Ring1_5
+  - barcode: CTAGCT_ATGAGC
+    target_gene: Atrx_4
+  - barcode: CTATAC_ATTCCT
+    target_gene: Parp1_5
+  - barcode: CTCAGA_CAAAAG
+    target_gene: Rnf2_4
+  - barcode: GACGAC_CAACTA
+    target_gene: Atrx_5
+  - barcode: TAATCG_CACCGG
+    target_gene: Suv39h1_5
+  - barcode: TACAGC_CACGAT
+    target_gene: Hdac1_5
+  - barcode: TATAAT_CACTCA
+    target_gene: Rnf2_5
+  - barcode: TCATTC_CAGGCG
+    target_gene: NA_
+  - barcode: TCCCGA_CATGGC
+    target_gene: NA_
+  - barcode: TCGAAG_CATTTT
+    target_gene: NA_
+  - barcode: TCGGCA_CCAACA
+    target_gene: NA_
+D19_R3:
+  A:
+  - barcode: AGTCAA_AGTTCC
+    target_gene: Ctcf_1
+  - barcode: AGTTCC_ATGTCA
+    target_gene: Rnf2_1
+  - barcode: ATGTCA_CCGTCC
+    target_gene: Ehmt2_1
+  - barcode: CCGTCC_GTAGAG
+    target_gene: Parp1_1
+  - barcode: GTAGAG_GTCCGC
+    target_gene: Parp1_2
+  - barcode: GTCCGC_GTGAAA
+    target_gene: Zfp57_1
+  - barcode: GTGAAA_GTGGCC
+    target_gene: Atf7ip_1
+  - barcode: GTGGCC_GTTTCG
+    target_gene: Hdac2_1
+  - barcode: GTTTCG_CGTACG
+    target_gene: Kmt5a_1
+  - barcode: CGTACG_GAGTGG
+    target_gene: Suv39h1_1
+  - barcode: GAGTGG_GGTAGC
+    target_gene: Smchd1_1
+  - barcode: GGTAGC_AGTCAA
+    target_gene: Sirt1_1
+  B:
+  - barcode: AGTCAA_ATGAGC
+    target_gene: Atrx_1
+  - barcode: AGTTCC_ATTCCT
+    target_gene: Rad21_1
+  - barcode: ATGTCA_CAAAAG
+    target_gene: Eed_1
+  - barcode: CCGTCC_CAACTA
+    target_gene: Hdac1_1
+  - barcode: GTAGAG_CACCGG
+    target_gene: Dnmt1_1
+  - barcode: GTCCGC_CACGAT
+    target_gene: Eed_2
+  - barcode: GTGAAA_CACTCA
+    target_gene: Rrm2_1
+  - barcode: GTGGCC_CAGGCG
+    target_gene: Atrx_2
+  - barcode: GTTTCG_CATGGC
+    target_gene: Dnmt1_2
+  - barcode: CGTACG_CATTTT
+    target_gene: Sirt1_2
+  - barcode: GAGTGG_CCAACA
+    target_gene: Parp1_3
+  - barcode: GGTAGC_ACTGAT
+    target_gene: Hdac2_2
+  C:
+  - barcode: AGTCAA_CTAGCT
+    target_gene: Smchd1_2
+  - barcode: AGTTCC_CTATAC
+    target_gene: Ehmt2_2
+  - barcode: ATGTCA_CTCAGA
+    target_gene: Rrm2_2
+  - barcode: CCGTCC_GACGAC
+    target_gene: Rrm2_3
+  - barcode: GTAGAG_TAATCG
+    target_gene: Smchd1_3
+  - barcode: GTCCGC_TACAGC
+    target_gene: Rrm2_4
+  - barcode: GTGAAA_TATAAT
+    target_gene: Kmt5a_2
+  - barcode: GTGGCC_TCATTC
+    target_gene: LUCIFERASE_1
+  - barcode: GTTTCG_TCCCGA
+    target_gene: Dnmt1_3
+  - barcode: CGTACG_TCGAAG
+    target_gene: Dnmt1_4
+  - barcode: GAGTGG_TCGGCA
+    target_gene: Rad21_2
+  - barcode: GGTAGC_CGGAAT
+    target_gene: Ring1_1
+  D:
+  - barcode: ACTGAT_AGTTCC
+    target_gene: Ehmt2_3
+  - barcode: ATGAGC_ATGTCA
+    target_gene: Rrm2_5
+  - barcode: ATTCCT_CCGTCC
+    target_gene: Ring1_2
+  - barcode: CAAAAG_GTAGAG
+    target_gene: Kmt5a_3
+  - barcode: CAACTA_GTCCGC
+    target_gene: Ehmt2_4
+  - barcode: CACCGG_GTGAAA
+    target_gene: Ctcf_2
+  - barcode: CACGAT_GTGGCC
+    target_gene: Suv39h1_2
+  - barcode: CACTCA_GTTTCG
+    target_gene: Atrx_3
+  - barcode: CAGGCG_CGTACG
+    target_gene: GFP_1
+  - barcode: CATGGC_GAGTGG
+    target_gene: Hdac2_3
+  - barcode: CATTTT_GGTAGC
+    target_gene: Hdac2_4
+  - barcode: CCAACA_AGTCAA
+    target_gene: Smchd1_4
+  E:
+  - barcode: ACTGAT_ATGAGC
+    target_gene: Eed_3
+  - barcode: ATGAGC_ATTCCT
+    target_gene: Atf7ip_2
+  - barcode: ATTCCT_CAAAAG
+    target_gene: Eed_4
+  - barcode: CAAAAG_CAACTA
+    target_gene: Rad21_3
+  - barcode: CAACTA_CACCGG
+    target_gene: Hdac1_2
+  - barcode: CACCGG_CACGAT
+    target_gene: Rad21_4
+  - barcode: CACGAT_CACTCA
+    target_gene: Ehmt2_5
+  - barcode: CACTCA_CAGGCG
+    target_gene: Rnf2_2
+  - barcode: CAGGCG_CATGGC
+    target_gene: Kmt5a_4
+  - barcode: CATGGC_CATTTT
+    target_gene: Sirt1_3
+  - barcode: CATTTT_CCAACA
+    target_gene: Zfp57_2
+  - barcode: CCAACA_ACTGAT
+    target_gene: Ring1_3
+  F:
+  - barcode: ACTGAT_CTAGCT
+    target_gene: Hdac1_3
+  - barcode: ATGAGC_CTATAC
+    target_gene: Sirt1_4
+  - barcode: ATTCCT_CTCAGA
+    target_gene: Atf7ip_3
+  - barcode: CAAAAG_GACGAC
+    target_gene: Parp1_4
+  - barcode: CAACTA_TAATCG
+    target_gene: Dnmt1_5
+  - barcode: CACCGG_TACAGC
+    target_gene: Ctcf_3
+  - barcode: CACGAT_TATAAT
+    target_gene: Zfp57_3
+  - barcode: CACTCA_TCATTC
+    target_gene: Ctcf_4
+  - barcode: CAGGCG_TCCCGA
+    target_gene: Rad21_5
+  - barcode: CATGGC_TCGAAG
+    target_gene: Rnf2_3
+  - barcode: CATTTT_TCGGCA
+    target_gene: Hdac1_4
+  - barcode: CCAACA_CGGAAT
+    target_gene: Suv39h1_3
+  G:
+  - barcode: CGGAAT_AGTTCC
+    target_gene: Suv39h1_4
+  - barcode: CTAGCT_ATGTCA
+    target_gene: Zfp57_4
+  - barcode: CTATAC_CCGTCC
+    target_gene: Smchd1_5
+  - barcode: CTCAGA_GTAGAG
+    target_gene: Atf7ip_4
+  - barcode: GACGAC_GTCCGC
+    target_gene: Ring1_4
+  - barcode: TAATCG_GTGAAA
+    target_gene: Atf7ip_5
+  - barcode: TACAGC_GTGGCC
+    target_gene: Eed_5
+  - barcode: TATAAT_GTTTCG
+    target_gene: Ctcf_5
+  - barcode: TCATTC_CGTACG
+    target_gene: Sirt1_5
+  - barcode: TCCCGA_GAGTGG
+    target_gene: Zfp57_5
+  - barcode: TCGAAG_GGTAGC
+    target_gene: Hdac2_5
+  - barcode: TCGGCA_AGTCAA
+    target_gene: Kmt5a_5
+  H:
+  - barcode: CGGAAT_ATGAGC
+    target_gene: Ring1_5
+  - barcode: CTAGCT_ATTCCT
+    target_gene: Atrx_4
+  - barcode: CTATAC_CAAAAG
+    target_gene: Parp1_5
+  - barcode: CTCAGA_CAACTA
+    target_gene: Rnf2_4
+  - barcode: GACGAC_CACCGG
+    target_gene: Atrx_5
+  - barcode: TAATCG_CACGAT
+    target_gene: Suv39h1_5
+  - barcode: TACAGC_CACTCA
+    target_gene: Hdac1_5
+  - barcode: TATAAT_CAGGCG
+    target_gene: Rnf2_5
+  - barcode: TCATTC_CATGGC
+    target_gene: NA_
+  - barcode: TCCCGA_CATTTT
+    target_gene: NA_
+  - barcode: TCGAAG_CCAACA
+    target_gene: NA_
+  - barcode: TCGGCA_ACTGAT
+    target_gene: NA_
+
