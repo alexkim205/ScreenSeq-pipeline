@@ -5,20 +5,31 @@
 ## YAML Version
 version <- 5.0
 
-## Experiment Setup
+## Experiment Setup ~ Primary Parameters
+
 project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge"
 run <- "FUYANG"
-pert_map_path <- "clean_data/DBI31_wo_ids.xlsx"
-pert_maps <- c("DBI31","DBI31","DBI31") ## TODO
-barcode_maps_path <- "clean_data/barcodes/"
-barcode_maps <- c("P1a","P1", "P2") # P3, P4
 days <- c("D12", "D19", "D19")
 replicates <- c("R3", "R2", "R3")
-date <- c("20171016", "20171023", "20171023")
+timestamp <- c("20171016", "20171023", "20171023")
+plate_ids <- paste0(pert_maps,"_",days,"_",replicates)
+
+### Constructs/Perturbations
+constructs_map_path <- "clean_data/constructs"
+constructs_maps <- c("DBI31","DBI31","DBI31") 
+
+### Barcodes
+barcode_maps_path <- "clean_data/barcodes"
+barcode_maps <- c("P1a","P1", "P2") # P3, P4
+
+### Cell Qualities
+cell_quals_path <- "clean_data/cell_quals"
+cell_quals <- paste0(timestamp, "_", plate_ids, "_cellqual.xlsx")
+
+
+## Secondary Parameters
 UMI <- FALSE
 SNP <- TRUE
-plate_ids <- paste0(pert_maps,"_",days,"_",replicates) # shRNA map
-
 well_alpha <- LETTERS[1:8]
 well_numer <- c(1:12)
 

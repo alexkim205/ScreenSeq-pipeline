@@ -15,5 +15,6 @@ create_constructs(tgene_f, tgene_fo, WRITE_CONSTRUCT_FILE)
 The data frame read from \code{tgene_f} with added `construct` column
 }
 \description{
-\code{create_constructs} reads construct file and creates unique construct id column.
+\code{create_constructs} reads construct file and creates unique construct id
+column.
 }

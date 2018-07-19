@@ -17,5 +17,6 @@ traverse_into_plate_wells(plate, id, input_data)
 The modified plate list
 }
 \description{
-\code{traverse_into_plate_wells} traverses through a plate list and sets \code{input_data} to property \code{id} for each well.
+\code{traverse_into_plate_wells} traverses through a plate list and sets
+\code{input_data} to property \code{id} for each well.
 }

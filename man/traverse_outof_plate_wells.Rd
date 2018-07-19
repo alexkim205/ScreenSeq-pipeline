@@ -15,5 +15,6 @@ traverse_outof_plate_wells(plate, id)
 A vector of values of property \code{id} across all wells
 }
 \description{
-\code{traverse_outof_plate_wells} traverses through a plate list and gets value at property \code{id} for each well.
+\code{traverse_outof_plate_wells} traverses through a plate list and gets
+value at property \code{id} for each well.
 }

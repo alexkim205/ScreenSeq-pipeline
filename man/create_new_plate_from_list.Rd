@@ -7,7 +7,8 @@
 create_new_plate_from_list(well_alpha, well_numer, id, list)
 }
 \arguments{
-\item{well_alpha}{A vector of letters from the alphabet corresponding to barcode plate rows}
+\item{well_alpha}{A vector of letters from the alphabet corresponding to
+barcode plate rows}
 
 \item{well_numer}{A vector of numbers corresponding to barcode plate columns}
 
@@ -19,5 +20,6 @@ create_new_plate_from_list(well_alpha, well_numer, id, list)
 A plate list
 }
 \description{
-\code{create_plates} creates a new plate list using specific property as guideline.
+\code{create_plates} creates a new plate list using specific property as
+guideline.
 }

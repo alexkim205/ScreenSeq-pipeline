@@ -13,11 +13,13 @@ write_wells_info(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER)
 
 \item{WRITE_WELLS_FILE}{If \code{TRUE}, write .yaml file, otherwise don't}
 
-\item{WRITE_PRINTSHEET_HELPER}{If \code{TRUE}, create pipetting helper file, otherwise don't}
+\item{WRITE_PRINTSHEET_HELPER}{If \code{TRUE}, create pipetting helper file,
+otherwise don't}
 }
 \value{
 NA
 }
 \description{
-\code{create_plates} creates a new plate list using specific property as guideline.
+\code{create_plates} creates a new plate list using specific property as
+guideline.
 }

@@ -17,5 +17,6 @@ add_list_to_plates(plates, id, list)
 A plate list with added property for each well
 }
 \description{
-\code{create_plates} creates a new plate list using specific property as guideline.
+\code{create_plates} creates a new plate list using specific property as
+guideline.
 }

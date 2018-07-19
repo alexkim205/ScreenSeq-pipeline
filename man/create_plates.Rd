@@ -4,16 +4,18 @@
 \alias{create_plates}
 \title{Create plates}
 \usage{
-create_plates(plate_ids, barcode_maps)
+create_plates(plate_ids, barcode_maps_f)
 }
 \arguments{
 \item{plate_ids}{A vector of plate id's}
 
-\item{barcode_maps}{A vector of barcode id's that has the same length as \code{plate_ids}.}
+\item{barcode_maps_f}{A vector of filepaths to barcode maps that has the same
+length as \code{plate_ids}.}
 }
 \value{
 A list of the plate lists that were created.
 }
 \description{
-\code{create_plates} creates a plate list for each \code{plate_id} using appropriate barcode maps.
+\code{create_plates} creates a plate list for each \code{plate_id} using
+appropriate barcode maps.
 }
