@@ -2,8 +2,7 @@ library(readxl)
 library(writexl)
 library(dplyr)
 
-source("functions.R")
-source("parameters.R")
+source("R/parameters.R")
 
 output_dir <- file.path(project_dir, "output")
 dir.create(output_dir, showWarnings = FALSE)
@@ -14,16 +13,15 @@ dir.create(output_dir, showWarnings = FALSE)
   tgene_fo <- file.path(output_dir, "pert_map_w_ids.xlsx")
   WRITE_CONSTRUCT_FILE <- TRUE
   
-  tgene_df <- create_constructs(tgene_f, tgene_fo) # Region
+  tgene_df <- create_constructs(tgene_f, tgene_fo, WRITE_CONSTRUCT_FILE) # Region
 }
 
 ## Load up barcodes 
 {
-  # barcodes_f <- paste0("../clean_data/fw_rv_pr_barcodes.xlsx")
   ### Create master plates list with barcodes
   plates <- create_plates(plate_ids, barcode_maps)
   ### Add target_gene data to plates list
-  complete_plates <- add_gene_id(plates, tgene_df$construct)
+  complete_plates <- add_list_to_plates(plates, "construct", tgene_df$construct)
 }
 
 ## Write aggregate information by well
@@ -36,6 +34,9 @@ dir.create(output_dir, showWarnings = FALSE)
 
 ## Get Cell Quality Data
 
+### Get from user uploaded file
+
+### Get from Shiny App
 
 ## Write YAML
 

@@ -8,9 +8,9 @@ version <- 5.0
 ## Experiment Setup
 project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge"
 run <- "FUYANG"
-pert_map_path <- "../clean_data/DBI31_wo_ids.xlsx"
+pert_map_path <- "clean_data/DBI31_wo_ids.xlsx"
 pert_maps <- c("DBI31","DBI31","DBI31") ## TODO
-barcode_maps_path <- "../clean_data/barcodes/"
+barcode_maps_path <- "clean_data/barcodes/"
 barcode_maps <- c("P1a","P1", "P2") # P3, P4
 days <- c("D12", "D19", "D19")
 replicates <- c("R3", "R2", "R3")
