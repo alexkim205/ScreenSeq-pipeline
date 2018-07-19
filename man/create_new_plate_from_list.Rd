@@ -20,6 +20,6 @@ barcode plate rows}
 A plate list
 }
 \description{
-\code{create_plates} creates a new plate list using specific property as
+\code{create_new_plate_from_list} creates a new plate list using specific property as
 guideline.
 }

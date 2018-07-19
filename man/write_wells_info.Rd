@@ -20,6 +20,5 @@ otherwise don't}
 NA
 }
 \description{
-\code{create_plates} creates a new plate list using specific property as
-guideline.
+\code{write_wells_info} writes per well information to a easily readable yaml file.
 }

@@ -1,11 +1,9 @@
-library(readxl)
-library(writexl)
-library(dplyr)
-
 source("parameters.R")
 
 output_dir <- file.path(project_dir, "output")
 dir.create(output_dir, showWarnings = FALSE)
+config_dir <- file.path(project_dir, "config")
+dir.create(config_dir, showWarnings = FALSE)
 
 ## Get barcodes
 {
@@ -27,6 +25,7 @@ dir.create(output_dir, showWarnings = FALSE)
   plates.bc.cst <- add_lists_to_plates(plates.bc, "construct", constructs_list)
 }
 
+
 ## Get Cell Quality Data
 
 ### Get clean data from Shiny App
@@ -39,16 +38,22 @@ dir.create(output_dir, showWarnings = FALSE)
   plates.bc.cst.cq <- add_lists_to_plates(plates.bc.cst, "cell_quality", cell_quals_list)
 }
 
+
 ## Write well YAML
 {
   WRITE_WELLS_FILE <- TRUE
   WRITE_PRINTSHEET_HELPER <- TRUE
   
-  write_wells_info(output_dir, plates.bc.cst, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER)
+  write_wells_info(output_dir, plates.bc.cst.cq, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER)
 }
 
-## Write config YAML
 
+## Write config YAML
+{
+  write_config_yaml(plates.bc.cst.cq)
+}
+
+## Run Perl Script
 
 ## Get Perl Output
 

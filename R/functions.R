@@ -1,5 +1,8 @@
 library(data.table)
 library(rlist)
+library(readxl)
+library(writexl)
+library(dplyr)
 
 #' Traverse into plate wells
 #'
@@ -86,11 +89,36 @@ get_constructs <- function(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRU
     temp_constructs_l[[plate_ids[constructs_f_1]]] <- constructs_df$construct
     
     if (WRITE_CONSTRUCT_FILE) {
-      write_xlsx(tgene_df, tgene_fo)
+      write_xlsx(constructs_df, constructs_fo[constructs_f_1])
     }
   }
   
   return(temp_constructs_l)
+}
+
+#' Get information from plate name
+#'
+#' \code{get_info_from_platename} gets specified information from the
+#' concatenated id of a plate (e.g., "DBI31_D12_R3")
+#'
+#' @param concat_str A concatenated plate id (e.g., "DBI31_D12_R3")
+#' @param id The property to get from \code{concat_str}. In the format of
+#'   {construct_map}_{day}_{replicate}.
+#' @return A string of the property value
+get_info_from_platename <- function(concat_str, id = c("construct_map", "day", "replicate")) {
+  
+  split_str <- strsplit(concat_str, "_")[[1]]
+  
+  # {construct_map}_{day}_{replicate}
+  if (id == "construct_map") {
+    return(split_str[1])
+  } else if (id == "day") {
+    return(split_str[2])
+  } else if (id == "replicate") {
+    return(split_str[3])
+  } else {
+    stop("Cannot extract that property from plate id.")
+  }
 }
 
 #' Get cell qualities
@@ -165,25 +193,6 @@ create_new_plate_from_list <- function(well_alpha, well_numer, id, list) {
   }
   
   return(temp_plate)
-}
-
-#' Add the same property vector to a list of plates
-#'
-#' \code{add_list_to_plates} adds the same property list to all plates in the
-#' given list of plates.
-#'
-#' @param plates A list of plates
-#' @param id The id of the property of the list you are adding
-#' @param list The list of values of specific property of well
-#' @return A plate list with added property for each well
-add_list_to_plates <- function(plates, id, list) {
-  
-  temp_plates <- plates
-  for (plate in seq_along(plates)) {
-    temp_plates[[plate]] <- traverse_into_plate_wells(temp_plates[[plate]], id, list)
-  }
-  return(temp_plates)
-  
 }
 
 #' Add a list of property vectors to a list of plates
@@ -294,3 +303,92 @@ write_wells_info <- function(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSH
   }
 }
 
+#' Write configuration yaml file for Perl input.
+#'
+#' \code{write_wells_info} writes per well information to a easily readable YAML
+#' file.
+#'
+#' Read in the parameters in \code{parameters.R} and create a configuration YAML
+#' file that can act as an input for Sasha's Perl scripts.
+#' 
+#' @param plates A list of plate lists that carries all the well information
+#' @return NA
+write_config_yaml <- function(plates) {
+  
+  source("R/parameters.R", local=TRUE)
+  
+  # Data Preparation
+  
+  ## Prepare list of {construct_id: barcode}
+  
+  samples_barcodes_l <- list()
+  for (plate_i in seq_along(plates)) {
+    
+    day <- get_info_from_platename(names(plates)[plate_i], "day")
+    construct_temp <- traverse_outof_plate_wells(plates[[plate_i]], "construct")
+    construct.day_temp <- paste0(construct_temp, "_", day)
+    barcode_temp <- traverse_outof_plate_wells(plates[[plate_i]], "barcode")
+    
+    temp_list <- as.list(setNames(barcode_temp, construct.day_temp))
+    samples_barcodes_l <- c(samples_barcodes_l, temp_list)
+  }
+  
+  ## Prepare file directory paths
+  
+  s2_fo <- file.path(project_dir, s2_result_path, s2_result)
+  yaml_fo <- file.path(config_dir, paste0(run, ".yaml"))
+  scripts_dir_path <- file.path(project_dir, scripts_path)
+  fastq_dir_path <- file.path(project_dir, fastq_dir)
+  SAM_dir_path <- file.path(project_dir, SAM_location)
+  
+  # Sasha's YAML format
+  
+  yaml_list <- list(
+    version = version,
+    experiment = list(
+      UMI = UMI,
+      SNP = SNP
+    ),
+    scripts = list(
+      location = scripts_dir_path,
+      UMI_script = UMI_script,
+      SNP_script = SNP_script,
+      s2 = s2_script
+    ),
+    output = list(
+      result = s2_fo,
+      output_yaml = output_yaml
+    ),
+    diagnostics = list(
+      DEBUG = DEBUG,
+      use_existing_sorted_SAM = use_existing_sorted_SAM,
+      leave_SAM = leave_SAM,
+      TryRevComp = TryRevComp
+    ),
+    alignment = list(
+      fastq_dir = fastq_dir_path,
+      R1 = R1,
+      R2 = R2,
+      reference = reference,
+      SAM_name_base = paste0(run, "_", reference),
+      SAM_location = SAM_dir_path
+    ),
+    genes = genes_l,
+    samples_barcodes = samples_barcodes_l,
+    step2 = list(
+      minimal_MAPQ = minimal_MAPQ,
+      insert_len_min = insert_len_min,
+      insert_len_max = insert_len_max,
+      amplicon_size_tolerance = amplicon_size_tolerance,
+      UMInoSNPpattern = UMInoSNPpattern,
+      SNPnoUMIpattern = SNPnoUMIpattern,
+      T2_small = T2_small,
+      MINflankLength = MINflankLength
+    )
+  )
+  
+  # Write yaml file
+  
+  list.save(yaml_list, yaml_fo)
+  
+}
