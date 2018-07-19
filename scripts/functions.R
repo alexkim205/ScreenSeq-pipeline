@@ -3,6 +3,14 @@ library(rlist)
 
 source("parameters.R")
 
+#' Traverse into plate wells
+#'
+#' \code{traverse_into_plate_wells} traverses through a plate list and sets \code{input_data} to property \code{id} for each well.
+#'
+#' @param plate A plate list
+#' @param id A property of a well
+#' @param input_data A list of values to be set
+#' @return The modified plate list
 traverse_into_plate_wells <- function(plate, id, input_data) {
   # Put data in
   
@@ -25,6 +33,13 @@ traverse_into_plate_wells <- function(plate, id, input_data) {
   return(temp_plate)
 }
 
+#' Traverse out of plate wells
+#'
+#' \code{traverse_outof_plate_wells} traverses through a plate list and gets value at property \code{id} for each well.
+#'
+#' @param plate A plate list
+#' @param id A property of a well
+#' @return A vector of values of property \code{id} across all wells
 traverse_outof_plate_wells <- function(plate, id) {
   # Get data_id out
   
@@ -47,24 +62,21 @@ traverse_outof_plate_wells <- function(plate, id) {
   return(temp_vector)
 }
 
+#' Create construct ids
+#'
+#' \code{create_constructs} reads construct file and creates unique construct id column.
+#'
+#' @param tgene_f A construct file path
+#' @param tgene_fo A file path to write modified construct df to
+#' @return The data frame read from \code{tgene_f} with added `construct` column
 create_constructs <- function(tgene_f, tgene_fo) {
   
   tgene_df <- read_excel(tgene_f)
   
-  # tgene_df %>% 
-  #   group_by(Symbol) %>% 
-  #   mutate(construct=if(n()>1) {paste0(Symbol, "_", Region, "_", row_number())}
-  #          else paste0(Symbol, "_", Region)) 
-  
-  hash <- list()
-  tgene_df$`Construct ID` <- 0
-  
-  for (row in 1:nrow(tgene_df)) {
-    x <- tgene_df$Symbol[row]
-    if (x %in% names(hash)) {hash[[x]] <- hash[[x]] + 1} 
-    else {hash[[x]] <- 1}
-    tgene_df$`Construct ID`[row] <- paste0(x, "_", hash[[x]])
-  }
+  tgene_df <- tgene_df %>%
+                group_by(Symbol) %>%
+                mutate(construct=if(n()>1) {paste0(Symbol, "_", Region, "_", row_number())}
+                  else paste0(Symbol, "_", Region))
   
   if (WRITE_CONSTRUCT_FILE) {
     write_xlsx(tgene_df, tgene_fo)
@@ -73,6 +85,13 @@ create_constructs <- function(tgene_f, tgene_fo) {
   
 }
 
+#' Create plates
+#'
+#' \code{create_plates} creates a plate list for each \code{plate_id} using appropriate barcode maps.
+#'
+#' @param plate_ids A vector of plate id's
+#' @param barcode_maps A vector of barcode id's that has the same length as \code{plate_ids}.
+#' @return A list of the plate lists that were created.
 create_plates <- function(plate_ids, barcode_maps) {
   
   barcode_maps_f <- paste0(barcode_maps_path, barcode_maps, ".xlsx")
@@ -83,24 +102,25 @@ create_plates <- function(plate_ids, barcode_maps) {
   for (plate_i in 1:length(plate_ids)) {
     
     barcodes_for_plate <- read_excel(barcode_maps_f[plate_i], col_names=FALSE)$X__1
-    plates[[plate_ids[plate_i]]] <- 
-      create_new_plate_from_list(plates[[plate_ids[plate_i]]], 
-                           well_alpha, well_numer, 
-                           "barcode", barcodes_for_plate)
-      # traverse_into_plate_wells(plates[[plate_ids[plate_i]]], "barcode", barcodes_for_plate)
-    
-    # offset <- offsets[match(barcode_maps[plate_i], barcode_maps)]
-    # temp_plate <- create_barcodes(well_alpha, well_numer, offset)
-    # plates[[plate_ids[plate_i]]] <- temp_plate
+    plates[[plate_ids[plate_i]]] <- create_new_plate_from_list(well_alpha, well_numer, "barcode", barcodes_for_plate)
   }
   return(plates)
   
 }
 
-create_new_plate_from_list <- function(plate, well_alpha, well_numer, id, list) {
-  # create new plate list from list of barcodes/target_genes
+#' Create new plate from a list
+#'
+#' \code{create_plates} creates a new plate list using specific property as guideline. 
+#'
+#' @param well_alpha A vector of letters from the alphabet corresponding to barcode plate rows
+#' @param well_numer A vector of numbers corresponding to barcode plate columns
+#' @param id The id of the property of the list you are creating plate from
+#' @param list The list of values of specific property of well
+#' @return A plate list
+create_new_plate_from_list <- function(well_alpha, well_numer, id, list) {
+  # create new plate list from list of barcodes/construct/cell_quality
   
-  properties_per_well <- c("barcode", "target_gene", "cell_quality")
+  properties_per_well <- c("barcode", "construct", "cell_quality")
     
   temp_plate <- sapply(well_alpha,function(x) NULL)
   i <- 1
@@ -117,7 +137,25 @@ create_new_plate_from_list <- function(plate, well_alpha, well_numer, id, list) 
   return(temp_plate)
 }
 
-# DONT USE FOR NOW
+#' Add a property list to a list of plates
+#'
+#' \code{create_plates} creates a new plate list using specific property as guideline. 
+#'
+#' @param plates A list of plates
+#' @param id The id of the property of the list you are adding
+#' @param list The list of values of specific property of well
+#' @return A plate list with added property for each well
+add_list_to_plates <- function(plates, id, list) {
+  
+  temp_plates <- plates
+  for (plate in seq_along(plates)) {
+    temp_plates[[plate]] <- traverse_into_plate_wells(temp_plates[[plate]], id, list)
+  }
+  return(temp_plates)
+  
+}
+
+# DONT USE FOR NOW, should be renamed to generate_barcodes
 create_barcodes_old <- function(well_alpha, well_numer, offset = 0, divider = 3) {
   
   barcode_in_df <- read_excel(barcodes_f)
@@ -165,16 +203,15 @@ create_barcodes_old <- function(well_alpha, well_numer, offset = 0, divider = 3)
   return(wells)
 }
 
-add_gene_id <- function(plates, target_genes_list) {
-  
-  temp_plates <- plates
-  for (plate in seq_along(plates)) {
-    temp_plates[[plate]] <- traverse_into_plate_wells(temp_plates[[plate]], "target_gene", target_genes_list)
-  }
-  return(temp_plates)
-  
-}
-
+#' Write list of plates to yaml file
+#'
+#' \code{create_plates} creates a new plate list using specific property as guideline. 
+#'
+#' @param output_dir A path to directory to output files to
+#' @param plates_list A list of plate lists that carries all the well information
+#' @param WRITE_WELLS_FILE If \code{TRUE}, write .yaml file, otherwise don't
+#' @param WRITE_PRINTSHEET_HELPER If \code{TRUE}, create pipetting helper file, otherwise don't
+#' @return NA
 write_wells_info <- function(output_dir, plates_list, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER) {
   
   # Write Plate Information to YAML

@@ -23,7 +23,7 @@ dir.create(output_dir, showWarnings = FALSE)
   ### Create master plates list with barcodes
   plates <- create_plates(plate_ids, barcode_maps)
   ### Add target_gene data to plates list
-  complete_plates <- add_gene_id(plates, tgene_df$`Construct ID`)
+  complete_plates <- add_gene_id(plates, tgene_df$construct)
 }
 
 ## Write aggregate information by well
