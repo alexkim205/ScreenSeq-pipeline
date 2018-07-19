@@ -36,7 +36,8 @@ project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
 project_run_name <- "HONDA"
 pools <- c(1:7)
 
-make_project(project_dir, project_run_name, pools, overwrite=TRUE)
+# haven't finished writing this function yet
+# make_project(project_dir, project_run_name, pools, overwrite=TRUE)
 ```
 
 ### `parameters.R`
@@ -81,14 +82,13 @@ constructs_maps <- c("DBI31","DBI31","DBI31")
 barcode_maps_path <- "barcodes"
 barcode_maps <- c("P1a","P1", "P2") # P3, P4
 
+### Generate Plate Identifiers ~ Don't touch
+plate_ids <- paste0(constructs_maps,"_",days,"_",replicates)
+plate_ids
+
 ### Cell Qualities
 cell_quals_path <- "cell_viabilities"
 cell_quals <- paste0(timestamp, "_", plate_ids, "_cellqual.xlsx")
-```
-
-```{r}
-plate_ids <- paste0(constructs_maps,"_",days,"_",replicates)
-plate_ids
 ```
 
 *YAML Configuration File*
