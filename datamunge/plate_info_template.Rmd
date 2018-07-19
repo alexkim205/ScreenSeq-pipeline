@@ -1,30 +1,58 @@
 ---
-title: "Plate Information"
+title: "ScreenSeq Plate Report"
 author: "Alex Kim"
 date: "7/17/2018"
 output: html_document
+params:
+  plate: NA
+  traverse_out_fn: NA
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
 ```
 
-# ScreenSeq Plate Report
+```{r data, include=FALSE}
+traverse_out_fn <- params$traverse_out_fn
+plate <- params$plate
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+createColumns <- function(row_header) {
+  lapply(1:4, function(i) {
+    
+    barcodes <- traverse_out_fn(list(plate[[i]]), "barcode")
+    bc_dt <- data.frame(matrix(unlist(strsplit(barcodes, "_")), ncol=2, byrow=T),stringsAsFactors=FALSE)
+    names(bc_dt) <- c("fw", "rv")
+    
+    bc_dt
+    
+    kable(bc_dt)
+  })
+}
+row1_header <- c("A","C","E","G")
+row2_header <- c("B","D","F","H")  
 ```
 
-## Including Plots
+### Barcodes
 
-You can also embed plots, for example:
+```{r}
+sliderInput("bins", "Number of bins:", 30, min = 1, max = 50)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+renderPlot({
+  x    = faithful[, 2]  # Old Faithful Geyser data
+  bins = seq(min(x), max(x), length.out = input$bins + 1)
+
+  # draw the histogram with the specified number of bins
+  hist(x, breaks = bins, col = 'darkgray', border = 'white')
+})
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+createColumns(row2_header)
+```   
+    
+### Target Genes
+
+```{r}
+```

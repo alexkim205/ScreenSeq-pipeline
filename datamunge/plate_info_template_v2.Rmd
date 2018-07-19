@@ -1,0 +1,40 @@
+---
+title: "ScreenSeq Plate Report"
+author: "Alex Kim"
+date: "7/18/2018"
+output: html_document
+params:
+  plate: NA
+  traverse_out_fn: NA
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(data.table)
+```
+
+```{r data, include=FALSE}
+traverse_out_fn <- params$traverse_out_fn
+plate <- params$plate
+
+row1_header <- c("A","C","E","G")
+row2_header <- c("B","D","F","H")  
+```
+
+## Barcode
+
+```{r, results='asis'}
+
+for (section_i in seq_along(plate)) {
+  barcodes <- traverse_out_fn(list(plate[[section_i]]), "barcode")
+  bc_dt <- data.frame(matrix(unlist(strsplit(barcodes, "_")), ncol=2, byrow=T),stringsAsFactors=FALSE)
+  names(bc_dt) <- c("fw", "rv")
+  k <- kable(bc_dt) %>%
+        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  print(k)
+}
+
+```

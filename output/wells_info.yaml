@@ -1,4 +1,4 @@
-D12_R3:
+DBI31_D12_R3:
   A:
   - barcode: AGTCAA_GTGAAA
     target_gene: Ctcf_1
@@ -199,7 +199,7 @@ D12_R3:
     target_gene: NA_
   - barcode: TCGGCA_CACCGG
     target_gene: NA_
-D19_R2:
+DBI31_D19_R2:
   A:
   - barcode: AGTCAA_AGTCAA
     target_gene: Ctcf_1
@@ -400,7 +400,7 @@ D19_R2:
     target_gene: NA_
   - barcode: TCGGCA_CCAACA
     target_gene: NA_
-D19_R3:
+DBI31_D19_R3:
   A:
   - barcode: AGTCAA_AGTTCC
     target_gene: Ctcf_1

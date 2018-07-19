@@ -16,7 +16,7 @@ traverse_into_plate_wells <- function(plate, id, input_data) {
   #### Target Gene ID
   
   for (well_section_i in seq_along(temp_plate)) {
-    for (well_i in seq_along(well_section)) {
+    for (well_i in seq_along(temp_plate[[well_section_i]])) {
       temp_plate[[well_section_i]][[well_i]][[id]] <-input_data[i]
       i <- i + 1
     }
@@ -28,6 +28,7 @@ traverse_into_plate_wells <- function(plate, id, input_data) {
 traverse_outof_plate_wells <- function(plate, id) {
   # Get data_id out
   
+  temp_plate <- plate
   temp_vector <- c()
   i <- 1
   
@@ -37,7 +38,7 @@ traverse_outof_plate_wells <- function(plate, id) {
   #### Barcode
   #### Target Gene ID
   for (well_section_i in seq_along(plate)) {
-    for (well_i in seq_along(well_section)) {
+    for (well_i in seq_along(temp_plate[[well_section_i]])) {
       temp_vector[i] <- plate[[well_section_i]][[well_i]][[id]]
       i <- i + 1
     }
@@ -49,6 +50,12 @@ traverse_outof_plate_wells <- function(plate, id) {
 create_constructs <- function(tgene_f, tgene_fo) {
   
   tgene_df <- read_excel(tgene_f)
+  
+  # tgene_df %>% 
+  #   group_by(Symbol) %>% 
+  #   mutate(construct=if(n()>1) {paste0(Symbol, "_", Region, "_", row_number())}
+  #          else paste0(Symbol, "_", Region)) 
+  
   hash <- list()
   tgene_df$`Construct ID` <- 0
   
@@ -92,14 +99,16 @@ create_plates <- function(plate_ids, barcode_maps) {
 
 create_new_plate_from_list <- function(plate, well_alpha, well_numer, id, list) {
   # create new plate list from list of barcodes/target_genes
+  
+  properties_per_well <- c("barcode", "target_gene", "cell_quality")
     
   temp_plate <- sapply(well_alpha,function(x) NULL)
   i <- 1
   
   for (well_section_i in seq_along(temp_plate)) {
     temp_plate[[well_section_i]] <- sapply(well_numer,function(x) NULL)
-    for (well_i in seq_along(well_section)) {
-      temp_plate[[well_section_i]][[well_i]] <- sapply(c("barcode", "target_gene"),function(x) NULL)
+    for (well_i in seq_along(temp_plate[[well_section_i]])) {
+      temp_plate[[well_section_i]][[well_i]] <- sapply(properties_per_well, function(x) NULL)
       temp_plate[[well_section_i]][[well_i]][[id]] <- list[i]
       i <- i + 1
     }
@@ -166,10 +175,7 @@ add_gene_id <- function(plates, target_genes_list) {
   
 }
 
-write_wells_info <- function(project_dir, plates_list, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER) {
-  
-  output_dir <- file.path(project_dir, "output")
-  dir.create(output_dir, showWarnings = FALSE)
+write_wells_info <- function(output_dir, plates_list, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER) {
   
   # Write Plate Information to YAML
   if (WRITE_WELLS_FILE) {
@@ -181,20 +187,22 @@ write_wells_info <- function(project_dir, plates_list, WRITE_WELLS_FILE, WRITE_P
   # Write HTML Supplementary .Rmd
   if (WRITE_PRINTSHEET_HELPER) {
     
+    # For each plate, print Rmd and .xlsx
     for (plate_i in seq_along(plates)) {
       
       plate_id <- plate_ids[plate_i]
+      barcode_by_plate <- barcode_maps[plate_i]
       report_fo <- file.path(output_dir, paste0(plate_id, '_plate_info.Rmd'))
-      params <- list(plates_list = plates_list)
+      barcode_fo <- file.path(output_dir, paste0(plate_id, "_", barcode_by_plate, "_map.xlsx"))
+      
+      params <- list(plate = plates[[plate_id]],
+                     traverse_out_fn = traverse_outof_plate_wells)
+      
+      rmarkdown::render("plate_info_template_v2.Rmd", output_file = report_fo,
+                        params = params,
+                        envir = new.env())
+      
     }
-    
-    
-    
-    
-    rmarkdown::render("plate_info_template.Rmd", output_file = )
   }
-  
-  
-  
 }
 
