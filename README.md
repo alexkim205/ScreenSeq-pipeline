@@ -11,8 +11,8 @@ copying data from one spreadsheet to another to configuration files
 which is time consuming and error prone. This attempts to make that
 process less painful.
 
-*Future work* would include R Shiny apps that augment experiment design
-and data input (cell viability).
+**Future work** would include R Shiny apps that augment experiment
+design and data input (cell viability).
 
 ## Usage
 
@@ -25,6 +25,155 @@ the `R/` directory manually.
     `parameters.R`
 3.  Make sure your current working directory is same folder that
     `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
+
+### `main.R`
+
+This is where the data is centralized (pulled in from the various inputs
+in the `parameters.R` file). These discrete steps drive the pipeline.
+
+First grab the parameters and functions:
+
+``` r
+source("R/parameters.R")
+source("R/functions.R")
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:data.table':
+    ## 
+    ##     between, first, last
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+**Get Barcodes**
+
+The barcode maps are read from files at:
+
+`file.path(project_dir, barcode_maps_path, paste0(barcode_maps,
+".xlsx"))`
+
+  - `create_plates()` creates a list of plates and the populates those
+    plates with their respective barcodes.
+
+<!-- end list -->
+
+``` r
+## Get barcodes
+{
+  ### Create master plates list with barcodes
+  barcode_maps_f <- file.path(project_dir, barcode_maps_path, paste0(barcode_maps, ".xlsx"))
+  plates.bc <- create_plates(plate_ids, barcode_maps_f)
+}
+```
+
+**Get Constructs/Perturbation IDs**
+
+The constructs are read from files at:
+
+`file.path(project_dir, constructs_map_path, paste0(constructs_maps,
+".xlsx"))`
+
+and if `WRITE_CONSTRUCT_FILE` is true, an intermediate file is created
+for debugging purposes. This output file is the same dataframe read in
+from `constructs_f` with an additional `construct_id` column.
+
+  - `get_constructs()` returns a list of vectors of construct id’s. This
+    list of plates has the same names as the `plates.bc` object.
+  - `add_lists_to_plates()` adds `constructs_list` to the list of plates
+    called `plates.bc`. Now the list of plates should have barcode and
+    construct id information for each well, and this populated list is
+    saved in `plates.bc.cst`.
+
+<!-- end list -->
+
+``` r
+## Get Construct/Perturbation ID's
+{
+  constructs_f <- file.path(project_dir, constructs_map_path, paste0(constructs_maps, ".xlsx"))
+  constructs_fo <- file.path(output_dir, paste0(constructs_maps, "_w_ids.xlsx"))
+  WRITE_CONSTRUCT_FILE <- TRUE
+  
+  constructs_list <- get_constructs(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRUCT_FILE) # Region
+  
+  ### Add construct id data to plates list
+  plates.bc.cst <- add_lists_to_plates(plates.bc, "construct", constructs_list)
+}
+```
+
+**Get Cell Viability Data**
+
+The cell viability data are read from files at:
+
+`file.path(project_dir, cell_quals_path, cell_quals)`
+
+These files are cleaned up cell quality `.xlsx` files which have three
+columns: `Row`, `Column`, and `Cell_quality`. There should be one file
+per plate. They should be named in this format:
+`{timestamp}_{construct_map}_{day}_{replicate}.xlsx` (e.g.,
+`20171016_DBI31_D12_R3_cellqual.xlsx`)
+
+  - `get_cell_qualities()` returns a list of vectors of cell\_qualities.
+    This list of plates has the same names as the plates objects made
+    before.
+  - `add_lists_to_plates()` adds `cell_quals_list` to the list of plates
+    called `plates.bc.cst`. Now the list of plates should have barcode,
+    construct id, and cell\_quality information for each well, and this
+    populated list is saved in `plates.bc.cst.cq`.
+
+<!-- end list -->
+
+``` r
+## Get Cell Quality Data
+
+### Get clean data from Shiny App
+{
+  cell_quals_f <- file.path(project_dir, cell_quals_path, cell_quals)
+  
+  cell_quals_list <- get_cell_qualities(plate_ids, cell_quals_f)
+  
+  ### Add cell_quality data to plates list
+  plates.bc.cst.cq <- add_lists_to_plates(plates.bc.cst, "cell_quality", cell_quals_list)
+}
+```
+
+**Write aggregated plate information to YAML**
+
+The reasoning behind writing the plate to a `.yaml` is so that it can be
+programmatically easily read in/manipulated by hand if necessary. The
+file is easily readable and can also serve as a reference if the
+experimenter wants to pinpoint which barcode/construct\_id/cell\_quality
+was in a specific well.
+
+``` r
+## Write well YAML
+{
+  WRITE_WELLS_FILE <- TRUE
+  WRITE_PRINTSHEET_HELPER <- TRUE
+  
+  write_wells_info(output_dir, plates.bc.cst.cq, WRITE_WELLS_FILE, WRITE_PRINTSHEET_HELPER)
+}
+```
+
+**Write YAML configuration file**
+
+Writes a YAML configuration file that is used as input for Sasha’s
+`s1.sh` (alignment) and `s2.sh` (count) scripts. The file will be called
+`{run}.yaml` and will be written to a folder called `config/`.
+
+``` r
+## Write config YAML
+{
+  write_config_yaml(plates.bc.cst.cq)
+}
+```
 
 ### `make_project.R`
 
@@ -59,7 +208,7 @@ more in-depth explanation of these parameters follows below:
 version <- 5.0
 ```
 
-*Experiment Setup*
+**Experiment Setup**
 
 The `project directory` is the path at which you want to create a
 project folder called FUYANG, or whatever `run` is, inside of. `pools`
@@ -111,7 +260,7 @@ cell_quals_path <- "cell_viabilities"
 cell_quals <- paste0(timestamp, "_", plate_ids, "_cellqual.xlsx")
 ```
 
-*YAML Configuration File*
+**YAML Configuration File**
 
 These parameters are required to create the `.yaml` file input for
 Sasha’s `s1.sh` and `s2.sh` scripts which align and performs a SNP
@@ -216,7 +365,3 @@ MINflankLength <- 6
 ### `function.R`
 
 See documentation for each function in `man/` folder.
-
-### `main.R`
-
-This is where everything is integrated.

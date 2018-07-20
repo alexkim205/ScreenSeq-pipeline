@@ -27,10 +27,19 @@ I plan to make this into a package so that the functions can be used modularly, 
 
 This is where the data is centralized (pulled in from the various inputs in the `parameters.R` file). These discrete steps drive the pipeline.
 
-First grab the parameters:
+First grab the parameters and functions:
 
 ```{r}
-source("parameters.R")
+source("R/parameters.R")
+source("R/functions.R")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# create/define output_dir/config_dir
+output_dir <- file.path(project_dir, "output")
+dir.create(output_dir, showWarnings = FALSE)
+config_dir <- file.path(project_dir, "config")
+dir.create(config_dir, showWarnings = FALSE)
 ```
 
 **Get Barcodes**

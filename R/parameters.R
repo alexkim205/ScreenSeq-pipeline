@@ -22,12 +22,12 @@ constructs_maps <- c("DBI31","DBI31","DBI31")
 barcode_maps_path <- "clean_data/barcodes"
 barcode_maps <- c("P1a","P1", "P2") # P3, P4
 
+### Plate identifiers ~ Don't edit
+plate_ids <- paste0(constructs_maps,"_",days,"_",replicates)
+
 ### Cell Qualities
 cell_quals_path <- "clean_data/cell_quals"
 cell_quals <- paste0(timestamp, "_", plate_ids, "_cellqual.xlsx")
-
-### Plate identifiers ~ Don't edit
-plate_ids <- paste0(constructs_maps,"_",days,"_",replicates)
 
 ## YAML Parameters
 UMI <- FALSE

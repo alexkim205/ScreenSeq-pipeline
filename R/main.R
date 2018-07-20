@@ -1,5 +1,10 @@
 source("parameters.R")
 
+output_dir <- file.path(project_dir, "output")
+dir.create(output_dir, showWarnings = FALSE)
+config_dir <- file.path(project_dir, "config")
+dir.create(config_dir, showWarnings = FALSE)
+
 ## Get barcodes
 {
   ### Create master plates list with barcodes
