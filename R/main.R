@@ -1,9 +1,13 @@
 source("parameters.R")
 
+## Create project directory structure
+make_project(project_dir, run, pools, overwrite = TRUE) 
+
+
 output_dir <- file.path(project_dir, "output")
-dir.create(output_dir, showWarnings = FALSE)
+# dir.create(output_dir, showWarnings = FALSE)
 config_dir <- file.path(project_dir, "config")
-dir.create(config_dir, showWarnings = FALSE)
+# dir.create(config_dir, showWarnings = FALSE)
 
 ## Get barcodes
 {

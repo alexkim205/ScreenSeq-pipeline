@@ -2,7 +2,7 @@
 title: "ScreenSeq Pipeline README.Rmd"
 author: "Alex Kim"
 date: "7/19/2018"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}

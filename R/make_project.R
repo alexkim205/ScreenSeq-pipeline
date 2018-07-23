@@ -1,4 +1,3 @@
-
 #' Make project directory structure
 #'
 #' \code{traverse_into_plate_wells} traverses through a plate list and sets
@@ -56,13 +55,47 @@
 #' @param pools A vector of pool ID's
 #' @param overwrite A boolean that if true will overwrite any existing project 
 #'   directory specified at \code{project_dir}
-#' @return NA
-make_project <- function(project_dir, pools, overwrite = TRUE) {
+#' @return The project_run_dir path
+make_project <- function(project_dir, project_run_name, pools, overwrite = TRUE) {
+  
   # TODOO NOT DONE
-  project_path <- file.path(project_dir, pools)
+  project_run_path <- file.path(project_dir, project_run_name)
+  dir.create(project_dir, showWarnings = FALSE)
+  
+  {
+    barcodes_path
+    cell_viabilities_path 
+    {
+      
+    }
+    config_path
+    constructs_path
+    fastq_path
+    {
+      
+    }
+    logs_path
+    output_path
+    sam_path
+    {
+      
+    }
+    src_path
+    {
+      perl_path
+      sh_path
+    }
+    
+  }
+  
   output_dir <- file.path(project_dir, "output")
   dir.create(output_dir, showWarnings = FALSE)
+  
   config_dir <- file.path(project_dir, "config")
   dir.create(config_dir, showWarnings = FALSE)
+  
+}
+
+mkdir <- function(path, path_in_path) {
   
 }
