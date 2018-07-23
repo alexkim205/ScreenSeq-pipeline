@@ -344,7 +344,7 @@ write_config_yaml <- function(plates) {
   # Sasha's YAML format
   
   yaml_list <- list(
-    version = version,
+    version = yaml_version,
     experiment = list(
       UMI = UMI,
       SNP = SNP

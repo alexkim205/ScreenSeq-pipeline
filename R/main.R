@@ -1,4 +1,5 @@
-source("parameters.R")
+source("R/parameters.R")
+source("R/functions.R")
 
 ## Create project directory structure
 make_project(project_dir, run, pools, overwrite = TRUE) 
