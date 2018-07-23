@@ -1,14 +1,15 @@
 source("R/parameters.R")
 source("R/functions.R")
+source("R/make_project.R")
+
+yaml_f <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml"
+plate_name <- tools::file_path_sans_ext(basename(yaml_f))
+
+## Read in parameters into global namespace
+read_parameters(yaml_f)
 
 ## Create project directory structure
-make_project(project_dir, run, pools, overwrite = TRUE) 
-
-
-output_dir <- file.path(project_dir, "output")
-# dir.create(output_dir, showWarnings = FALSE)
-config_dir <- file.path(project_dir, "config")
-# dir.create(config_dir, showWarnings = FALSE)
+project_dir <<- make_project(output_path, plate_name, overwrite = TRUE)
 
 ## Get barcodes
 {

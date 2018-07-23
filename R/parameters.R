@@ -31,7 +31,7 @@ read_parameters <- function(yaml_f) {
   ### Plate identifiers ~ Don't edit
   plate_ids <<- paste0(constructs_maps,"_",days,"_",replicates)
   ### Cell Qualities
-  cell_quals_path <<- yaml_data$data$cell_quality$path
+  cell_quals_path <<- yaml_data$data$cell_viabilities$path
   # cell_quals <- paste0(time_stamp, "_", plate_ids, "_cellqual.xlsx")
   ## genes
   ### temporary solution until I figure out where these genes are coming from
@@ -44,7 +44,7 @@ read_parameters <- function(yaml_f) {
   ## YAML Version
   yaml_version <<- yaml_data$version
   
-  project_dir <<- yaml_data$output_path
+  output_path <<- yaml_data$output_path
   
   ## S1 - alignment
   doS1 <<- yaml_data$S1$doS1

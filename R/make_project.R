@@ -9,37 +9,14 @@
 #' is generated will look like this: 
 #' 
 #' \itemize{
-#'   \item \{project_run_name\}/
+#'   \item \{plate_name\}/
 #'   \itemize{
-#'     \item barcodes/
 #'     \item cell_viabilities/
-#'     \itemize{
-#'       \item \{project_run_name\}_P\{\code{pools[1]}\}/
-#'       \item \{project_run_name\}_P\{\code{pools[2]}\}/
-#'       \item ...
-#'     }
 #'     \item config/
-#'     \item constructs/
-#'     \item fastq/
-#'     \itemize{
-#'       \item \{project_run_name\}_P\{\code{pools[1]}\}/
-#'         \itemize{
-#'           \item \{project_run_name\}_P\{\code{pools[1]}\}_R1.fastq
-#'           \item \{project_run_name\}_P\{\code{pools[1]}\}_R2.fastq
-#'         }
-#'       \item \{project_run_name\}_P\{\code{pools[2]}\}/
-#'         \itemize{
-#'           \item ...
-#'         }
-#'       \item ...
-#'     }
 #'     \item logs/
-#'     \item output/
-#'     \item sam/
+#'     \item outputs/
 #'     \itemize{
-#'       \item \{project_run_name\}_P\{\code{pools[1]}\}/
-#'       \item \{project_run_name\}_P\{\code{pools[2]}\}/
-#'       \item ...
+#'       \item sam/
 #'     }
 #'     \item src/
 #'     \itemize{
@@ -50,52 +27,38 @@
 #' }
 #'
 #'
-#' @param project_dir A file path 
-#' @param project_run_name A string identifier for the experiment
-#' @param pools A vector of pool ID's
+#' @param output_dir A file path of where the plate folder will be created
+#' @param plate_name A string of the plate name
 #' @param overwrite A boolean that if true will overwrite any existing project 
 #'   directory specified at \code{project_dir}
 #' @return The project_run_dir path
-make_project <- function(project_dir, project_run_name, pools, overwrite = TRUE) {
+make_project <- function(output_dir, plate_name, overwrite = TRUE) {
   
-  # TODOO NOT DONE
-  project_run_path <- file.path(project_dir, project_run_name)
-  dir.create(project_dir, showWarnings = FALSE)
+  # project_dir is plate directory
+  project_dir <- mkdir(output_dir, plate_name)
   
   {
-    barcodes_path
-    cell_viabilities_path 
+    cell_viabilities_dir <- mkdir(project_dir, "cell_viability")
+    config_dir <- mkdir(project_dir, "config")
+    logs_dir <- mkdir(project_dir, "log")
+    outputs_dir <- mkdir(project_dir, "output")
     {
-      
+      # where s1 alignments go
+      sams_dir <- mkdir(outputs_dir, "sam")
     }
-    config_path
-    constructs_path
-    fastq_path
+    # copy in scripts from helper scripts folder
+    src_dir <- mkdir(project_dir, "src")
     {
-      
+      file.copy("src_help/perl", src_dir, recursive=TRUE)
+      file.copy("src_help/sh", src_dir, recursive=TRUE)
     }
-    logs_path
-    output_path
-    sam_path
-    {
-      
-    }
-    src_path
-    {
-      perl_path
-      sh_path
-    }
-    
   }
   
-  output_dir <- file.path(project_dir, "output")
-  dir.create(output_dir, showWarnings = FALSE)
-  
-  config_dir <- file.path(project_dir, "config")
-  dir.create(config_dir, showWarnings = FALSE)
-  
+  return(project_dir)
 }
 
 mkdir <- function(path, path_in_path) {
-  
+  temp_dir <- file.path(path, path_in_path)
+  dir.create(temp_dir, showWarnings = FALSE)
+  return(temp_dir)
 }
