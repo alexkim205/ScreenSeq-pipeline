@@ -1,35 +1,27 @@
-ScreenSeq Pipeline README.Rmd
+ScreenSeq Pipeline README
 ================
 Alex Kim
 7/19/2018
 
-## Background
+Background
+----------
 
-This pipeline for the ScreenSeq technique was created to make running
-experiments using this technology easier. Current methods involve
-copying data from one spreadsheet to another to configuration files
-which is time consuming and error prone. This attempts to make that
-process less painful.
+This pipeline for the ScreenSeq technique was created to make running experiments using this technology easier. Current methods involve copying data from one spreadsheet to another to configuration files which is time consuming and error prone. This attempts to make that process less painful.
 
-**Future work** would include R Shiny apps that augment experiment
-design and data input (cell viability).
+**Future work** would include R Shiny apps that augment experiment design and data input (cell viability).
 
-## Usage
+Usage
+-----
 
-I plan to make this into a package so that the functions can be used
-modularly, but for now the user will have to open up the `.R` files in
-the `R/` directory manually.
+I plan to make this into a package so that the functions can be used modularly, but for now the user will have to open up the `.R` files in the `R/` directory manually.
 
 1.  Open up `datamunge.Rproj` with RStudio.
-2.  Open the following files: `functions.R`, `main.R`, `make_project.R`,
-    `parameters.R`
-3.  Make sure your current working directory is same folder that
-    `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
+2.  Open the following files: `functions.R`, `main.R`, `make_project.R`, `parameters.R`
+3.  Make sure your current working directory is same folder that `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
 
 ### `main.R`
 
-This is where the data is centralized (pulled in from the various inputs
-in the `parameters.R` file). These discrete steps drive the pipeline.
+This is where the data is centralized (pulled in from the various inputs in the `parameters.R` file). These discrete steps drive the pipeline.
 
 First grab the parameters and functions:
 
@@ -57,13 +49,9 @@ source("R/functions.R")
 
 The barcode maps are read from files at:
 
-`file.path(project_dir, barcode_maps_path, paste0(barcode_maps,
-".xlsx"))`
+`file.path(project_dir, barcode_maps_path, paste0(barcode_maps, ".xlsx"))`
 
-  - `create_plates()` creates a list of plates and the populates those
-    plates with their respective barcodes.
-
-<!-- end list -->
+-   `create_plates()` creates a list of plates and the populates those plates with their respective barcodes.
 
 ``` r
 ## Get barcodes
@@ -78,21 +66,12 @@ The barcode maps are read from files at:
 
 The constructs are read from files at:
 
-`file.path(project_dir, constructs_map_path, paste0(constructs_maps,
-".xlsx"))`
+`file.path(project_dir, constructs_map_path, paste0(constructs_maps, ".xlsx"))`
 
-and if `WRITE_CONSTRUCT_FILE` is true, an intermediate file is created
-for debugging purposes. This output file is the same dataframe read in
-from `constructs_f` with an additional `construct_id` column.
+and if `WRITE_CONSTRUCT_FILE` is true, an intermediate file is created for debugging purposes. This output file is the same dataframe read in from `constructs_f` with an additional `construct_id` column.
 
-  - `get_constructs()` returns a list of vectors of construct id’s. This
-    list of plates has the same names as the `plates.bc` object.
-  - `add_lists_to_plates()` adds `constructs_list` to the list of plates
-    called `plates.bc`. Now the list of plates should have barcode and
-    construct id information for each well, and this populated list is
-    saved in `plates.bc.cst`.
-
-<!-- end list -->
+-   `get_constructs()` returns a list of vectors of construct id's. This list of plates has the same names as the `plates.bc` object.
+-   `add_lists_to_plates()` adds `constructs_list` to the list of plates called `plates.bc`. Now the list of plates should have barcode and construct id information for each well, and this populated list is saved in `plates.bc.cst`.
 
 ``` r
 ## Get Construct/Perturbation ID's
@@ -114,21 +93,10 @@ The cell viability data are read from files at:
 
 `file.path(project_dir, cell_quals_path, cell_quals)`
 
-These files are cleaned up cell quality `.xlsx` files which have three
-columns: `Row`, `Column`, and `Cell_quality`. There should be one file
-per plate. They should be named in this format:
-`{timestamp}_{construct_map}_{day}_{replicate}.xlsx` (e.g.,
-`20171016_DBI31_D12_R3_cellqual.xlsx`)
+These files are cleaned up cell quality `.xlsx` files which have three columns: `Row`, `Column`, and `Cell_quality`. There should be one file per plate. They should be named in this format: `{timestamp}_{construct_map}_{day}_{replicate}.xlsx` (e.g., `20171016_DBI31_D12_R3_cellqual.xlsx`)
 
-  - `get_cell_qualities()` returns a list of vectors of cell\_qualities.
-    This list of plates has the same names as the plates objects made
-    before.
-  - `add_lists_to_plates()` adds `cell_quals_list` to the list of plates
-    called `plates.bc.cst`. Now the list of plates should have barcode,
-    construct id, and cell\_quality information for each well, and this
-    populated list is saved in `plates.bc.cst.cq`.
-
-<!-- end list -->
+-   `get_cell_qualities()` returns a list of vectors of cell\_qualities. This list of plates has the same names as the plates objects made before.
+-   `add_lists_to_plates()` adds `cell_quals_list` to the list of plates called `plates.bc.cst`. Now the list of plates should have barcode, construct id, and cell\_quality information for each well, and this populated list is saved in `plates.bc.cst.cq`.
 
 ``` r
 ## Get Cell Quality Data
@@ -146,11 +114,7 @@ per plate. They should be named in this format:
 
 **Write aggregated plate information to YAML**
 
-The reasoning behind writing the plate to a `.yaml` is so that it can be
-programmatically easily read in/manipulated by hand if necessary. The
-file is easily readable and can also serve as a reference if the
-experimenter wants to pinpoint which barcode/construct\_id/cell\_quality
-was in a specific well.
+The reasoning behind writing the plate to a `.yaml` is so that it can be programmatically easily read in/manipulated by hand if necessary. The file is easily readable and can also serve as a reference if the experimenter wants to pinpoint which barcode/construct\_id/cell\_quality was in a specific well.
 
 ``` r
 ## Write well YAML
@@ -164,9 +128,7 @@ was in a specific well.
 
 **Write YAML configuration file**
 
-Writes a YAML configuration file that is used as input for Sasha’s
-`s1.sh` (alignment) and `s2.sh` (count) scripts. The file will be called
-`{run}.yaml` and will be written to a folder called `config/`.
+Writes a YAML configuration file that is used as input for Sasha's `s1.sh` (alignment) and `s2.sh` (count) scripts. The file will be called `{run}.yaml` and will be written to a folder called `config/`.
 
 ``` r
 ## Write config YAML
@@ -177,18 +139,14 @@ Writes a YAML configuration file that is used as input for Sasha’s
 
 ### `make_project.R`
 
-This file contains one helper function that allows the user to generate
-the correct folder hierarchy for any experimental run. Use this function
-to ensure that the program runs smoothly.
+This file contains one helper function that allows the user to generate the correct folder hierarchy for any experimental run. Use this function to ensure that the program runs smoothly.
 
-You can read the in-depth documentation of what the function exactly
-does in `man/make_project.Rd`.
+You can read the in-depth documentation of what the function exactly does in `man/make_project.Rd`.
 
-An
-example:
+An example:
 
 ``` r
-project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
+project_dir <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project"
 project_run_name <- "HONDA"
 pools <- c(1:7)
 
@@ -198,8 +156,7 @@ pools <- c(1:7)
 
 ### `parameters.R`
 
-This is where the user will be defining the experimental parameters. A
-more in-depth explanation of these parameters follows below:
+This is where the user will be defining the experimental parameters. A more in-depth explanation of these parameters follows below:
 
 #### General Parameters
 
@@ -210,17 +167,13 @@ version <- 5.0
 
 **Experiment Setup**
 
-The `project directory` is the path at which you want to create a
-project folder called FUYANG, or whatever `run` is, inside of. `pools`
-specifies how many pools are in the `run`. See function documentation
-for `make_project()` for more details on this.
+The `project directory` is the path at which you want to create a project folder called FUYANG, or whatever `run` is, inside of. `pools` specifies how many pools are in the `run`. See function documentation for `make_project()` for more details on this.
 
-Specify same-length vectors for `days`, `replicates`, `timestamp`, and
-`constructs_maps` to create a concatenated identifier for each plate.
+Specify same-length vectors for `days`, `replicates`, `timestamp`, and `constructs_maps` to create a concatenated identifier for each plate.
 
 ``` r
 ### Primary Parameters
-project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
+project_dir <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project"
 run <- "FUYANG"
 pools <- c(1:7)
 days <- c("D12", "D19", "D19")
@@ -230,13 +183,9 @@ well_alpha <- LETTERS[1:8] # A - H
 well_numer <- c(1:12)      # 1 - 12
 ```
 
-The `constructs_map_path`, `barcodes_map_path`, and
-`cell_quals_map_path` paths are all relative to the project\_dir. For
-example, the absolute path for `constructs_maps[1]` will be
-`/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project/constructs/DBI31.xlsx`.
+The `constructs_map_path`, `barcodes_map_path`, and `cell_quals_map_path` paths are all relative to the project\_dir. For example, the absolute path for `constructs_maps[1]` will be `/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project/constructs/DBI31.xlsx`.
 
-Keep in mind that all directory paths from here on out will be relative
-to the `project_dir` specified above.
+Keep in mind that all directory paths from here on out will be relative to the `project_dir` specified above.
 
 ``` r
 ### Constructs/Perturbations
@@ -262,12 +211,9 @@ cell_quals <- paste0(timestamp, "_", plate_ids, "_cellqual.xlsx")
 
 **YAML Configuration File**
 
-These parameters are required to create the `.yaml` file input for
-Sasha’s `s1.sh` and `s2.sh` scripts which align and performs a SNP
-count.
+These parameters are required to create the `.yaml` file input for Sasha's `s1.sh` and `s2.sh` scripts which align and performs a SNP count.
 
-The key parameters that you’ll be changing here are `s2_result_path`,
-`s2_result`, `fastq_dir`, `R1`, `R2`.
+The key parameters that you'll be changing here are `s2_result_path`, `s2_result`, `fastq_dir`, `R1`, `R2`.
 
 ``` r
 ## YAML Parameters
@@ -283,11 +229,7 @@ s2_result_path <- "output"
 s2_result <- "s2_output.txt"
 ```
 
-There should be files called `{run}_{pool_number}_R1.fastq` and
-`{run}_{pool_number}_R2.fastq` in their respective pool folders in the
-`fastq/` folder in the project directory. If this confuses you, check
-out the function documentation for `make_project()` for more details on
-the file hierarchy of the project directory.
+There should be files called `{run}_{pool_number}_R1.fastq` and `{run}_{pool_number}_R2.fastq` in their respective pool folders in the `fastq/` folder in the project directory. If this confuses you, check out the function documentation for `make_project()` for more details on the file hierarchy of the project directory.
 
 ``` r
 ## alignment
@@ -306,7 +248,7 @@ SAM_name_base <- "FUYANG_6-5_mm10"
 SAM_location <- "output"
 ```
 
-Copy and paste genes from `.yaml`’s in list form.
+Copy and paste genes from `.yaml`'s in list form.
 
 ``` r
 ## genes

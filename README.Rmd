@@ -1,5 +1,5 @@
 ---
-title: "ScreenSeq Pipeline README.Rmd"
+title: "ScreenSeq Pipeline README"
 author: "Alex Kim"
 date: "7/19/2018"
 output: rmarkdown::github_document
@@ -144,7 +144,7 @@ You can read the in-depth documentation of what the function exactly does in `ma
 An example:
 
 ```{r}
-project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
+project_dir <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project"
 project_run_name <- "HONDA"
 pools <- c(1:7)
 
@@ -171,7 +171,7 @@ Specify same-length vectors for `days`, `replicates`, `timestamp`, and `construc
 
 ```{r}
 ### Primary Parameters
-project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
+project_dir <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project"
 run <- "FUYANG"
 pools <- c(1:7)
 days <- c("D12", "D19", "D19")

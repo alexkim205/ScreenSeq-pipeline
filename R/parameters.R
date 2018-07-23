@@ -7,7 +7,7 @@ version <- 5.0
 
 ## Experiment Setup ~ Primary Parameters
 
-project_dir <- "/Users/alexkim/Desktop/Gimelbrant/datamunge_test_project"
+project_dir <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project"
 run <- "FUYANG"
 pools <- c(1:7)
 days <- c("D12", "D19", "D19")
