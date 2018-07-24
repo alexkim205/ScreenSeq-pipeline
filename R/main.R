@@ -2,8 +2,8 @@
 
 ## Set working directory to directory of this file which is `R/`
 cat("Setting working directory\n")
+cat(getwd())
 {
-  library(rstudioapi, lib.loc = "/home/ak583/tools/R/3.5.1")
   dir_of_this_file <- dirname(getSourceEditorContext()$path)
   detach(package:rstudioapi)
   setwd(dir_of_this_file)
