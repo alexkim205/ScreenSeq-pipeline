@@ -3,9 +3,20 @@
 ## Set working directory to directory of this file which is `R/`
 cat("Setting working directory\n")
 {
-  library(here, lib.loc = "/home/ak583/tools/R/3.5.1")
-  setwd(here())
-  detach(package:here)
+  path_of_this_file <- function() {
+    cmdArgs <- commandArgs(trailingOnly = FALSE)
+    needle <- "--file="
+    match <- grep(needle, cmdArgs)
+    if (length(match) > 0) {
+      # Rscript
+      return(normalizePath(sub(needle, "", cmdArgs[match])))
+    } else {
+      # 'source'd via R console
+      return(normalizePath(sys.frames()[[1]]$ofile))
+    }
+  }
+  dir_of_this_file <- path_of_this_file()
+  setwd(dir_of_this_file)
 }
 
 source("parameters.R")
