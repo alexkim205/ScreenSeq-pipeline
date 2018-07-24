@@ -4,6 +4,31 @@ library(readxl)
 library(writexl)
 library(dplyr)
 
+#' Gets the path of the file run by RScript
+#'
+#' \code{path_of_this_file} gets the path of the file that was called by
+#' RScript.
+#'
+#' This is an internal function whose purpose is to provide context for when I
+#' source the \code{parameters.R} and \code{functions.R} files. I define it in
+#' the \code{functions.R} file just to provide this documentation. Graciously
+#' stolen from
+#' https://stackoverflow.com/questions/1815606/rscript-determine-path-of-the-executing-script
+#'
+#' @return The path of the file that was called by RScript.
+path_of_this_file <- function() {
+  cmdArgs <- commandArgs(trailingOnly = FALSE)
+  needle <- "--file="
+  match <- grep(needle, cmdArgs)
+  if (length(match) > 0) {
+    # Rscript
+    return(normalizePath(sub(needle, "", cmdArgs[match])))
+  } else {
+    # 'source'd via R console
+    return(normalizePath(sys.frames()[[1]]$ofile))
+  }
+}
+
 #' Traverse into plate wells
 #'
 #' \code{traverse_into_plate_wells} traverses through a plate list and sets
@@ -281,6 +306,7 @@ write_wells_info <- function(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSH
     list.save(plates, yaml_fo)
     
   }
+  ## TODO
   # Write HTML Supplementary .Rmd
   if (WRITE_PRINTSHEET_HELPER) {
     
