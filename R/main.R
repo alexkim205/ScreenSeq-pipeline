@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
 
-source("parameters.R")
-source("functions.R")
-source("make_project.R")
-
 # Set working directory to directory of this file which is R/
 dir_of_this_file <- dirname(rstudioapi::getSourceEditorContext()$path)
 setwd(dir_of_this_file)
+
+source("parameters.R")
+source("functions.R")
+source("make_project.R")
 
 # Argument parser
 ## `Rscript main.R /Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml`
