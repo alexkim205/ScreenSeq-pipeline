@@ -1,6 +1,9 @@
-source("R/parameters.R")
-source("R/functions.R")
-source("R/make_project.R")
+dir_of_this_file <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(dir_of_this_file)
+
+source("parameters.R")
+source("functions.R")
+source("make_project.R")
 
 yaml_f <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml"
 plate_name <- tools::file_path_sans_ext(basename(yaml_f))

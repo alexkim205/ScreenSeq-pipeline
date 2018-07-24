@@ -316,7 +316,7 @@ write_wells_info <- function(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSH
 #' @return NA
 write_config_yaml <- function(plates, yaml_fo) {
   
-  source("R/parameters.R", local=TRUE)
+  source("parameters.R", local=TRUE)
   
   # Data Preparation
   
