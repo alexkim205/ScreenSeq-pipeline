@@ -35,16 +35,16 @@
 make_project <- function(output_dir, plate_name, overwrite = TRUE) {
   
   # project_dir is plate directory
-  project_dir <- mkdir(output_dir, plate_name)
+  project_dir <<- mkdir(output_dir, plate_name)
   
   {
     cell_viabilities_dir <- mkdir(project_dir, "cell_viability")
     config_dir <- mkdir(project_dir, "config")
     logs_dir <- mkdir(project_dir, "log")
-    outputs_dir <- mkdir(project_dir, "output")
+    outputs_dir <<- mkdir(project_dir, "output")
     {
       # where s1 alignments go
-      sams_dir <- mkdir(outputs_dir, "sam")
+      sams_dir <<- mkdir(outputs_dir, "sam")
     }
     # copy in scripts from helper scripts folder
     src_dir <- mkdir(project_dir, "src")
@@ -53,8 +53,6 @@ make_project <- function(output_dir, plate_name, overwrite = TRUE) {
       file.copy("src_help/sh", src_dir, recursive=TRUE)
     }
   }
-  
-  return(project_dir)
 }
 
 mkdir <- function(path, path_in_path) {

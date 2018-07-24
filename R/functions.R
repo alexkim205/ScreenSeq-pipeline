@@ -312,8 +312,9 @@ write_wells_info <- function(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSH
 #' file that can act as an input for Sasha's Perl scripts.
 #' 
 #' @param plates A list of plate lists that carries all the well information
+#' @param yaml_fo A file path to write the configuration yaml to
 #' @return NA
-write_config_yaml <- function(plates) {
+write_config_yaml <- function(plates, yaml_fo) {
   
   source("R/parameters.R", local=TRUE)
   
@@ -333,12 +334,11 @@ write_config_yaml <- function(plates) {
     samples_barcodes_l <- c(samples_barcodes_l, temp_list)
   }
   
-  ## Prepare file directory paths
+  ## Prepare file paths
   
   s2_fo <- file.path(project_dir, s2_result_path, s2_result)
-  yaml_fo <- file.path(config_dir, paste0(run, ".yaml"))
-  scripts_dir_path <- file.path(project_dir, scripts_path)
-  fastq_dir_path <- file.path(project_dir, fastq_dir)
+  scripts_dir_path <- file.path(project_dir, "src/perl")
+  fastq_dir_path <- file.path(fastq_dir)
   SAM_dir_path <- file.path(project_dir, SAM_location)
   
   # Sasha's YAML format
@@ -351,9 +351,9 @@ write_config_yaml <- function(plates) {
     ),
     scripts = list(
       location = scripts_dir_path,
-      UMI_script = UMI_script,
-      SNP_script = SNP_script,
-      s2 = s2_script
+      UMI_script = "ast_umi_v41.pl",
+      SNP_script = "ast_snpv62X.pl",
+      s2 = "step2v52X.pl"
     ),
     output = list(
       result = s2_fo,
@@ -391,4 +391,46 @@ write_config_yaml <- function(plates) {
   
   list.save(yaml_list, yaml_fo)
   
+}
+
+#' Run step 1 - Alignment
+#'
+#' \code{runs_s1} runs s1.sh and passes in the configuration yaml file
+#'
+#' @param yaml_fo A file path to the configuration yaml
+#' @param doS1 A boolean that decides whether alignment should be done or not,
+#'   default is TRUE
+#' @return NA
+run_s1 <- function(yaml_fo, doS1 = TRUE) {
+  
+  s1.sh_path <- file.path(project_dir, "src/sh/s1.sh")
+  
+  if (!doS1) {
+    return(NULL)
+  }
+  
+  cmd <- paste("sbatch", s1.sh_path, yaml_fo, sep=" ")
+  cat(cmd)
+  system(cmd)
+}
+
+#' Run step 2 - Alignment
+#'
+#' \code{runs_s2} runs s2.sh and passes in the configuration yaml file
+#'
+#' @param yaml_fo A file path to the configuration yaml
+#' @param doS2 A boolean that decides whether alignment should be done or not,
+#'   default is TRUE
+#' @return NA
+run_s2 <- function(yaml_fo, doS2 = TRUE) {
+  
+  s2.sh_path <- file.path(project_dir, "src/sh/s2.sh")
+  
+  if (!doS2) {
+    return(NULL)
+  }
+  
+  cmd <- paste("sbatch", s2.sh_path, yaml_fo, sep=" ")
+  cat(cmd)
+  system(cmd)
 }
