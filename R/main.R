@@ -1,9 +1,13 @@
 #!/usr/bin/env Rscript
 
-## Set working directory to directory of this file which is R/
+## Set working directory to directory of this file which is `R/`
 cat("Setting working directory\n")
-dir_of_this_file <- dirname(sys.frame(1)$ofile) #dirname(rstudioapi::getSourceEditorContext()$path)
-setwd(dir_of_this_file)
+{
+  library(rstudioapi, lib.loc = "/home/ak583/tools/R/3.5.1")
+  dir_of_this_file <- dirname(getSourceEditorContext()$path)
+  detach(package:rstudioapi)
+  setwd(dir_of_this_file)
+}
 
 source("parameters.R")
 source("functions.R")
@@ -12,7 +16,7 @@ source("make_project.R")
 ## Argument parser
 cat("Parsing arguments\n")
 {
-  ### `Rscript main.R /Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml`
+  ### `Rscript main.R {plate_basename}.yaml`
   args <- commandArgs(trailingOnly=TRUE)
   yaml_f <- read_arguments(args)
   
