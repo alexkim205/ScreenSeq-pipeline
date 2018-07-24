@@ -1,4 +1,5 @@
-#						sped up sort
+# v.5.3 06/24/18    Alex    gene SAMs go to $dir/gene folder; mkdir if ! -e    
+# v.5.2     Sasha	sped up sort
 # v.5.1	12/19/16	Sasha	merged UMI and SNP branches
 # v.5.0	12/3/16	Sasha	updated to invoke new output & dump YAML file
 # v.0.5	8/26/16	Sasha	updated to deal with (YAML 4.0)
@@ -23,6 +24,10 @@ unless($ExpectedConfigVersion eq $ConfigVersion) {die "$0: YAML config file vers
 $dir=$config->{alignment}->{SAM_location};
 $sam=$config->{alignment}->{SAM_name_base};
 $BAM="$dir"."/"."$sam".".sorted.bam";
+$genedir="$dir"."/gene";
+
+# create $dir/gene folder if it doesn't exist - added by Alex
+mkdir $genedir unless -d $genedir;
 
 $DEBUG = $config->{diagnostics}->{DEBUG};
 $leave_sam=$config->{diagnostics}->{leave_SAM};
@@ -72,6 +77,12 @@ $timestamp .= " $SCRIPT $yaml";
 for (sort keys %{$config->{genes}}) {
     $gname=$_; 
     $pos=$config->{genes}->{$_}->{position};
+
+    # gname filenames - added by Alex
+    $gnamebam="$genedir"."/"."$gname".".bam";
+    $gnamesrt1sam="$genedir"."/"."$gname".".srt1.sam";
+    print $gnamebam;
+    print $gnamesrt1sam;
 		
     if($DEBUG){print STDERR "$gname\t"};
     if($DEBUG){print STDERR "SAM: slice ... "};
@@ -82,9 +93,9 @@ for (sort keys %{$config->{genes}}) {
     #~ $ans=`samtools view $BAM $pos -o $gname.sam` unless ($use_existing_SAM);
     #~ };
     if($SAMsubsampleFraction){
-	$ans=`samtools view -u -s 0.$SAMsubsampleFraction $BAM $pos -b -o $gname.bam` unless ($use_existing_SAM);    
+	$ans=`samtools view -u -s 0.$SAMsubsampleFraction $BAM $pos -b -o $gnamebam` unless ($use_existing_SAM);    
     } else{
-	$ans=`samtools view -u $BAM $pos -b -o $gname.bam`  unless ($use_existing_SAM);
+	$ans=`samtools view -u $BAM $pos -b -o $gnamebam`  unless ($use_existing_SAM);
     };		
 		
     ##### samtools view -b $BAM $pos  -o $gname.bam
@@ -92,20 +103,20 @@ for (sort keys %{$config->{genes}}) {
     #~ $ans=`samtools view -h $BAM $pos -o $gname.sam`;  ## for samtools sort
 		
     if($DEBUG){print STDERR "sort ... "};
-    $ans=`samtools sort -n  $gname.bam -o $gname.srt1.sam` unless ($use_existing_SAM);  
+    $ans=`samtools sort -n  $gnamebam -o $gnamesrt1sam` unless ($use_existing_SAM);  
     #~ $ans=`sort -k1,2 $gname.sam > $gname.srt1.sam` unless ($use_existing_SAM);  ## <<< this is VERY slow
 		
     if($DEBUG){print STDERR "counting ... "};
 		    
     ### now output 1st field as timestamp
     #~ `printf "field1 = $timestamp\t" >> $OUT`;		 
-    $ans=`perl $scripts/$SCRIPT $yaml $gname.srt1.sam $gname $timestamp >> $OUT`;
+    $ans=`perl $scripts/$SCRIPT $yaml $gnamesrt1sam $gname $timestamp >> $OUT`;
     if($DEBUG){print STDERR "\n"};
 		
     ## TODO check return status
 		
-    unless ($use_existing_SAM) {$ans=`rm $gname.bam` ;  };
-    unless ($leave_sam) {$ans=`rm $gname.srt1.sam`} ;
+    unless ($use_existing_SAM) {$ans=`rm $gnamebam` ;  };
+    unless ($leave_sam) {$ans=`rm $gnamesrt1sam`} ;
 }
 `echo "" >> $OUT`;
 

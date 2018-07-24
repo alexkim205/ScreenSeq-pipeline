@@ -5,8 +5,8 @@
 #SBATCH -n 8
 #SBATCH --mem-per-cpu=24G
 #SBATCH --job-name asym
-#SBATCH -o ../logs/%x_%j.out
-#SBATCH -e ../logs/%x_%j.err
+#SBATCH -o ../log/%x_%j.out
+#SBATCH -e ../log/%x_%j.err
 
 ######################################
 # USAGE: inside <prj>/src/
@@ -15,9 +15,8 @@
 
 module load gcc/6.2.0
 module load samtools/1.3.1
-module load bowtie2/2.2.9
-module load perl/5.24.0
-module load star/2.5.4a
+module load star/2.5.2b
+module load perl/5.24.0 
 
 # include parse_yaml function
 . parse_yaml.sh
