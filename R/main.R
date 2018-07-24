@@ -1,12 +1,9 @@
 #!/usr/bin/env Rscript
 
 ## Set working directory to directory of this file which is `R/`
-cat("Setting working directory\n")
-cat(getwd())
+cat("Setting working directory to R/\n")
 {
-  dir_of_this_file <- dirname(getSourceEditorContext()$path)
-  detach(package:rstudioapi)
-  setwd(dir_of_this_file)
+  setwd(file.path(getwd(), "R")) # alternative change sources to R/
 }
 
 source("parameters.R")
