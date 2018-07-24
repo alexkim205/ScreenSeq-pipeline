@@ -1,9 +1,11 @@
 #!/usr/bin/env Rscript
 
 ## Set working directory to directory of this file which is `R/`
-cat("Setting working directory to R/\n")
+cat("Setting working directory\n")
 {
-  setwd(file.path(getwd(), "R")) # alternative change sources to R/
+  library(here, lib.loc = "/home/ak583/tools/R/3.5.1")
+  setwd(here())
+  detach(package:here)
 }
 
 source("parameters.R")
