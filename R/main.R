@@ -1,12 +1,11 @@
 #!/usr/bin/env Rscript
 
-local_R_lib = "/home/ak583/tools/R/3.5.1" # TODO: don't hardcode
-library(yaml, lib.loc = local_R_lib)
-library(data.table, lib.loc = local_R_lib)
-library(rlist, lib.loc = local_R_lib)
-library(readxl, lib.loc = local_R_lib)
-library(writexl, lib.loc = local_R_lib)
-library(dplyr, lib.loc = local_R_lib)
+# local_R_lib = "/home/ak583/tools/R/3.5.1" # TODO: don't hardcode
+# library(yaml, lib.loc = local_R_lib)
+# library(rlist, lib.loc = local_R_lib)
+# library(readxl, lib.loc = local_R_lib)
+# library(writexl, lib.loc = local_R_lib)
+# library(dplyr, lib.loc = local_R_lib)
 
 ## Set working directory to directory of this file which is `R/`
 cat("Setting working directory\n")
@@ -36,7 +35,6 @@ source("make_project.R")
 cat("Parsing arguments\n")
 {
   ### `Rscript main.R {plate_basename}.yaml`
-  args <- commandArgs(trailingOnly=TRUE)
   yaml_f <- read_arguments(args)
   
   ### get plate_name

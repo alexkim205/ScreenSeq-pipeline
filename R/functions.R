@@ -1,8 +1,7 @@
-# library(data.table)
-# library(rlist)
-# library(readxl)
-# library(writexl)
-# library(dplyr)
+library(rlist)
+library(readxl)
+library(writexl)
+library(dplyr)
 
 #' Gets the path of the file run by RScript
 #'
