@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Set working directory to directory of this file which is R/
-dir_of_this_file <- dirname(rstudioapi::getSourceEditorContext()$path)
+dir_of_this_file <- dirname(sys.frame(1)$ofile) #dirname(rstudioapi::getSourceEditorContext()$path)
 setwd(dir_of_this_file)
 
 source("parameters.R")

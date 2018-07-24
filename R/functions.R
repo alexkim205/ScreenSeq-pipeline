@@ -281,6 +281,7 @@ write_wells_info <- function(output_dir, plates, WRITE_WELLS_FILE, WRITE_PRINTSH
     list.save(plates, yaml_fo)
     
   }
+  ## TODO
   # Write HTML Supplementary .Rmd
   if (WRITE_PRINTSHEET_HELPER) {
     
