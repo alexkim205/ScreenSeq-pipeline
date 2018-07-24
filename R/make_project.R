@@ -49,8 +49,8 @@ make_project <- function(output_dir, plate_name, overwrite = TRUE) {
     # copy in scripts from helper scripts folder
     src_dir <- mkdir(project_dir, "src")
     {
-      file.copy("src_help/perl", src_dir, recursive=TRUE)
-      file.copy("src_help/sh", src_dir, recursive=TRUE)
+      file.copy("../src_help/perl", src_dir, recursive=TRUE)
+      file.copy("../src_help/sh", src_dir, recursive=TRUE)
     }
   }
 }

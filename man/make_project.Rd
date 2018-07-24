@@ -4,18 +4,18 @@
 \alias{make_project}
 \title{Make project directory structure}
 \usage{
-make_project(project_dir, pools, overwrite = TRUE)
+make_project(output_dir, plate_name, overwrite = TRUE)
 }
 \arguments{
-\item{project_dir}{A file path}
+\item{output_dir}{A file path of where the plate folder will be created}
 
-\item{pools}{A vector of pool ID's}
+\item{plate_name}{A string of the plate name}
 
 \item{overwrite}{A boolean that if true will overwrite any existing project 
 directory specified at \code{project_dir}}
 }
 \value{
-NA
+The project_run_dir path
 }
 \description{
 \code{traverse_into_plate_wells} traverses through a plate list and sets
@@ -23,43 +23,25 @@ NA
 }
 \details{
 Running this helper function will generate a project directory
-structure given the proper parameters. The folder hierarchy that 
+structure given the proper parameters. The function will also copy the 
+necessary scripts into the src folder. The entire folder hierarchy that 
 is generated will look like this:
 
 \itemize{
-  \item \{project_run_name\}/
+  \item \{plate_name\}/
   \itemize{
-    \item barcodes/
     \item cell_viabilities/
-    \itemize{
-      \item \{project_run_name\}_P\{\code{pools[1]}\}/
-      \item \{project_run_name\}_P\{\code{pools[2]}\}/
-      \item ...
-    }
     \item config/
-    \item constructs/
-    \item fastq/
-    \itemize{
-      \item \{project_run_name\}_P\{\code{pools[1]}\}/
-        \itemize{
-          \item \{project_run_name\}_P\{\code{pools[1]}\}_R1.fastq
-          \item \{project_run_name\}_P\{\code{pools[1]}\}_R2.fastq
-        }
-      \item \{project_run_name\}_P\{\code{pools[2]}\}/
-        \itemize{
-          \item ...
-        }
-      \item ...
-    }
     \item logs/
-    \item output/
-    \item sam/
+    \item outputs/
     \itemize{
-      \item \{project_run_name\}_P\{\code{pools[1]}\}/
-      \item \{project_run_name\}_P\{\code{pools[2]}\}/
-      \item ...
+      \item sam/
     }
     \item src/
+    \itemize{
+      \item perl/
+      \item sh/
+    }
   }
 }
 }

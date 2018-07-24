@@ -4,10 +4,12 @@
 \alias{write_config_yaml}
 \title{Write configuration yaml file for Perl input.}
 \usage{
-write_config_yaml(plates)
+write_config_yaml(plates, yaml_fo)
 }
 \arguments{
 \item{plates}{A list of plate lists that carries all the well information}
+
+\item{yaml_fo}{A file path to write the configuration yaml to}
 }
 \value{
 NA

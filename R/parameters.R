@@ -1,5 +1,55 @@
 library(yaml)
 
+#' Read a yaml file
+#'
+#' \code{read_parameters} reads a yaml file and exports parameters into global namespace.
+#' 
+#' The following parameters are exported into the global namespace:
+#' \itemize{
+#'   \item \code{run}
+#'   \item \code{time_stamp}
+#'   \item \code{days}
+#'   \item \code{replicates}
+#'   \item \code{UMI}
+#'   \item \code{SNP}
+#'   \item \code{well_alpha}
+#'   \item \code{well_numer}
+#'   \item \code{constructs_map_path}
+#'   \item \code{constructs_maps}
+#'   \item \code{barcode_maps_path}
+#'   \item \code{barcode_maps}
+#'   \item \code{plate_ids}
+#'   \item \code{cell_quals_path}
+#'   \item \code{cell_quals}
+#'   \item \code{genes_l}
+#'   \item \code{yaml_version}
+#'   \item \code{output_path}
+#'   \item \code{doS1}
+#'   \item \code{SAM_location}
+#'   \item \code{SAM_name_base}
+#'   \item \code{fastq_dir}
+#'   \item \code{R1}
+#'   \item \code{R2}
+#'   \item \code{doS2}
+#'   \item \code{s2_result_path}
+#'   \item \code{s2_result}
+#'   \item \code{minimal_MAPQ}
+#'   \item \code{insert_len_min}
+#'   \item \code{insert_len_max}
+#'   \item \code{amplicon_size_tolerance}
+#'   \item \code{UMInoSNPpattern}
+#'   \item \code{SNPnoUMIpattern}
+#'   \item \code{T2_small}
+#'   \item \code{MINflankLength}
+#'   \item \code{DEBUG}
+#'   \item \code{use_existing_sorted_SAM}
+#'   \item \code{leave_SAM}
+#'   \item \code{TryRevComp}
+#'   \item \code{output_yaml}
+#' }
+#'
+#' @param yaml_f A file path to read plate yaml from
+#' @return NA
 read_parameters <- function(yaml_f) {
   
   yaml_data <- read_yaml(yaml_f)
@@ -80,6 +130,23 @@ read_parameters <- function(yaml_f) {
   leave_SAM <<- yaml_data$diagnostics$leave_SAM
   TryRevComp <<- yaml_data$diagnostics$TryRevComp
   output_yaml <<- yaml_data$diagnostics$output_yaml
+  
+}
+
+#' Checks arguments
+#'
+#' \code{read_arguments} checks if the plate yaml file was supplied.
+#' 
+#' @param args A vector of arguments passed in via Rscript
+#' @return A file path to the plate yaml file
+read_arguments <- function(args) {
+  
+  if (length(args)==0) {
+    stop("The plate's yaml file was not supplied.", call.=FALSE)
+  } else if (length(args)==1) {
+    # default output file
+    return(args[1])
+  }
   
 }
 

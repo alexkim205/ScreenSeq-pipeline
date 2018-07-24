@@ -1,11 +1,19 @@
-dir_of_this_file <- dirname(rstudioapi::getSourceEditorContext()$path)
-setwd(dir_of_this_file)
+#!/usr/bin/env Rscript
 
 source("parameters.R")
 source("functions.R")
 source("make_project.R")
 
-yaml_f <- "/Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml"
+# Set working directory to directory of this file which is R/
+dir_of_this_file <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(dir_of_this_file)
+
+# Argument parser
+## `Rscript main.R /Users/alexkim/Dropbox/Gimelbrant_Lab/datamunge_test_project/plate1.yaml`
+args <- commandArgs(trailingOnly=TRUE)
+yaml_f <- read_arguments(args)
+
+## get plate_name
 plate_name <- tools::file_path_sans_ext(basename(yaml_f))
 
 ## Read in parameters into global namespace
