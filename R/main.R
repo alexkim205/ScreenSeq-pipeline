@@ -16,6 +16,7 @@ cat("Setting working directory\n")
     }
   }
   dir_of_this_file <- path_of_this_file()
+  cat(dir_of_this_file)
   setwd(dir_of_this_file)
 }
 
