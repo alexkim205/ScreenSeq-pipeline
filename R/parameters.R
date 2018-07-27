@@ -1,5 +1,3 @@
-library(yaml)
-
 #' Read a yaml file
 #'
 #' \code{read_parameters} reads a yaml file and exports parameters into global namespace.
@@ -135,18 +133,33 @@ read_parameters <- function(yaml_f) {
 
 #' Checks arguments
 #'
-#' \code{read_arguments} checks if the plate yaml file was supplied.
-#' 
+#' \code{read_arguments} checks if the local library path and the plate yaml
+#' file was supplied.
+#'
 #' @param args A vector of arguments passed in via Rscript
-#' @return A file path to the plate yaml file
+#' @return A list of the local library path and the plate yaml file.
 read_arguments <- function(args) {
   
+  list.of.packages <- c("yaml","rlist","readxl","writexl","dplyr")
+  manual <- "Usage: \n\t/path/to/main.R [R_LIBS_USER] [plate_yaml_file]\t/path/to/main.R [plate_yaml_file]"
+  libraries <- "Error: required packages were not installed. See usage below for option to pass in a local library."
+  
   if (length(args)==0) {
-    stop("The plate's yaml file was not supplied.", call.=FALSE)
+    stop(manual, call.=FALSE)
   } else if (length(args)==1) {
-    # default output file
-    return(args[1])
+    # try default library
+    new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+    if(length(new.packages)) {
+      stop(paste(libraries,manual,sep="\n"), call.=FALSE)
+    } else {
+      return(list(NULL, args[2]))
+    }
+    stop(manual, call.=FALSE)
+  } else if (length(args)==2) {
+    # R local lib, plate yaml file
+    return(list(args[1], args[2]))
   }
+  print(args)
   
 }
 

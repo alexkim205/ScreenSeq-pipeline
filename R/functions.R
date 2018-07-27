@@ -1,8 +1,3 @@
-library(rlist)
-library(readxl)
-library(writexl)
-library(dplyr)
-
 #' Gets the path of the file run by RScript
 #'
 #' \code{path_of_this_file} gets the path of the file that was called by

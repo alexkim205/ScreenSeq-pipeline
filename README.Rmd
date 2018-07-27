@@ -17,6 +17,18 @@ This pipeline for the ScreenSeq technique was created to make running experiment
 
 ## Usage
 
+### Prerequisites
+
+Create a local R library somewhere in your scratch folder in the O2 cluster. Preferably you want this in your home directory. Then install the package dependencies in R.
+
+```{bash}
+// make local library
+mkdir ~/tools/R/3.5.1/
+
+//
+```
+
+
 I plan to make this into a package so that the functions can be used modularly, but for now the user will have to open up the `.R` files in the `R/` directory manually.
 
 1. Open up `datamunge.Rproj` with RStudio.

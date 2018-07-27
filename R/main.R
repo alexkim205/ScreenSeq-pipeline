@@ -1,12 +1,5 @@
 #!/usr/bin/env Rscript
 
-# local_R_lib = "/home/ak583/tools/R/3.5.1" # TODO: don't hardcode
-# library(yaml, lib.loc = local_R_lib)
-# library(rlist, lib.loc = local_R_lib)
-# library(readxl, lib.loc = local_R_lib)
-# library(writexl, lib.loc = local_R_lib)
-# library(dplyr, lib.loc = local_R_lib)
-
 ## Set working directory to directory of this file which is `R/`
 cat("Setting working directory\n")
 {
@@ -35,7 +28,17 @@ source("make_project.R")
 cat("Parsing arguments\n")
 {
   ### `Rscript main.R {plate_basename}.yaml`
-  yaml_f <- read_arguments(args)
+  args <- commandArgs(trailingOnly=TRUE)
+  l_loclib_yaml_f <- read_arguments(args)
+  local_lib <- l_loclib_yaml_f[[1]] # local library path, NULL if unspecified
+  yaml_f <- l_loclib_yaml_f[[2]] # yaml file path
+  
+  ### load appropriate libraries
+  library(yaml, lib.loc = local_lib)
+  library(rlist, lib.loc = local_lib)
+  library(readxl, lib.loc = local_lib)
+  library(writexl, lib.loc = local_lib)
+  library(dplyr, lib.loc = local_lib)
   
   ### get plate_name
   cat(" - Getting plate name\n")
