@@ -176,6 +176,6 @@ read_arguments <- function(args) {
 load_packages <- function(local_lib) {
   for (pkg in list.of.packages) {
     cat(paste0("Loaded ", pkg))
-    library(pkg, lib.loc = local_lib)
+    library(pkg, character.only=TRUE, lib.loc = local_lib)
   }
 }
