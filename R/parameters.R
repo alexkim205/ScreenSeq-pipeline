@@ -1,7 +1,7 @@
 # parameters.R 
 ## requires(yaml)
 
-list.of.packages <- c("yaml","rlist","dplyr")
+list.of.packages <- c("yaml","rlist","crayon","dplyr")
 
 #' Read a yaml file
 #'
@@ -175,7 +175,7 @@ read_arguments <- function(args) {
 #' @return NA
 load_packages <- function(local_lib) {
   for (pkg in list.of.packages) {
-    cat(paste0("Loaded ", pkg))
+    cat(paste0("Loaded ", pkg, "\n"))
     library(pkg, character.only=TRUE, lib.loc = local_lib)
   }
 }
