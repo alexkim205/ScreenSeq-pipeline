@@ -1,7 +1,7 @@
 # functions.R 
 ## requires(rlist)
-## requires(readxl)
-## requires(writexl)
+## requires(readxl) DONT NEED
+## requires(writexl) DONT NEED
 ## requires(dplyr)
 
 #' Gets the path of the file run by RScript
