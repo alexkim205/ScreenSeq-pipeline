@@ -1,3 +1,8 @@
+# parameters.R 
+## requires(yaml)
+
+list.of.packages <- c("yaml","rlist","readxl","writexl","dplyr")
+
 #' Read a yaml file
 #'
 #' \code{read_parameters} reads a yaml file and exports parameters into global namespace.
@@ -140,7 +145,6 @@ read_parameters <- function(yaml_f) {
 #' @return A list of the local library path and the plate yaml file.
 read_arguments <- function(args) {
   
-  list.of.packages <- c("yaml","rlist","readxl","writexl","dplyr")
   manual <- "Usage: \n\t/path/to/main.R [R_LIBS_USER] [plate_yaml_file]\t/path/to/main.R [plate_yaml_file]"
   libraries <- "Error: required packages were not installed. See usage below for option to pass in a local library."
   
@@ -163,3 +167,15 @@ read_arguments <- function(args) {
   
 }
 
+#' Loads packages
+#'
+#' \code{load_packages} loads the packages in the vector defined at the top of the parameters.R file.
+#'
+#' @param local_lib A path to a local R library folder
+#' @return NA
+load_packages <- function(local_lib) {
+  for (pkg in list.of.packages) {
+    cat(paste0("Loaded ", pkg))
+    library(pkg, lib.loc = local_lib)
+  }
+}

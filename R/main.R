@@ -33,12 +33,8 @@ cat("Parsing arguments\n")
   local_lib <- l_loclib_yaml_f[[1]] # local library path, NULL if unspecified
   yaml_f <- l_loclib_yaml_f[[2]] # yaml file path
   
-  ### load appropriate libraries
-  library(yaml, lib.loc = local_lib)
-  library(rlist, lib.loc = local_lib)
-  library(readxl, lib.loc = local_lib)
-  library(writexl, lib.loc = local_lib)
-  library(dplyr, lib.loc = local_lib)
+  ### load appropriate packages from local library
+  load_packages(local_lib)
   
   ### get plate_name
   cat(" - Getting plate name\n")
@@ -65,15 +61,15 @@ cat("Creating master plates\n")
   {
     #### Create master plates list with barcodes
     cat("  - Populate plates with barcodes\n")
-    barcode_maps_f <- file.path(barcode_maps_path, paste0(barcode_maps, ".xlsx"))
+    barcode_maps_f <- file.path(barcode_maps_path, paste0(barcode_maps, ".tsv"))
     plates.bc <- create_plates(plate_ids, barcode_maps_f)
   }
   
   ### Get Construct/Perturbation ID's
   cat(" - Getting perturbations\n")
   {
-    constructs_f <- file.path(constructs_map_path, paste0(constructs_maps, ".xlsx"))
-    constructs_fo <- file.path(outputs_dir, paste0(constructs_maps, "_w_ids.xlsx"))
+    constructs_f <- file.path(constructs_map_path, paste0(constructs_maps, ".tsv"))
+    constructs_fo <- file.path(outputs_dir, paste0(constructs_maps, "_w_ids.tsv"))
     WRITE_CONSTRUCT_FILE <- TRUE
     
     constructs_list <- get_constructs(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRUCT_FILE) # Region
@@ -87,7 +83,7 @@ cat("Creating master plates\n")
   cat(" - Getting cell viability data\n")
   {
     #### Get clean data from Shiny App
-    cell_quals_f <- file.path(cell_quals_path, cell_quals)
+    cell_quals_f <- file.path(cell_quals_path, paste0(cell_quals, ".tsv"))
     
     cell_quals_list <- get_cell_qualities(plate_ids, cell_quals_f)
     

@@ -1,3 +1,9 @@
+# functions.R 
+## requires(rlist)
+## requires(readxl)
+## requires(writexl)
+## requires(dplyr)
+
 #' Gets the path of the file run by RScript
 #'
 #' \code{path_of_this_file} gets the path of the file that was called by
@@ -90,8 +96,8 @@ traverse_outof_plate_wells <- function(plate, id) {
 #' column.
 #'
 #' @param plate_ids A vector of plate id's
-#' @param constructs_f A vector of file paths to constructs .xlsx files
-#' @param constructs_fo A vector of file paths to write modified constructs .xlsx files
+#' @param constructs_f A vector of file paths to constructs .tsv files
+#' @param constructs_fo A vector of file paths to write modified constructs .tsv files
 #' @return A list of vectors of constructs
 get_constructs <- function(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRUCT_FILE) {
   
@@ -99,7 +105,8 @@ get_constructs <- function(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRU
   
   for (constructs_f_1 in seq_along(constructs_f)) {
     
-    constructs_df <- read_excel(constructs_f[constructs_f_1])
+    constructs_df <- read.table(file = constructs_f[constructs_f_1], sep = '\t', header = TRUE)
+    # constructs_df <- read_excel(constructs_f[constructs_f_1])
     constructs_df <- constructs_df %>%
       group_by(Symbol) %>%
       mutate(construct=if(n()>1) {paste0(Symbol, "_", Region, "_", row_number())}
@@ -108,7 +115,9 @@ get_constructs <- function(plate_ids, constructs_f, constructs_fo, WRITE_CONSTRU
     temp_constructs_l[[plate_ids[constructs_f_1]]] <- constructs_df$construct
     
     if (WRITE_CONSTRUCT_FILE) {
-      write_xlsx(constructs_df, constructs_fo[constructs_f_1])
+      write.table(constructs_df, file=constructs_fo[constructs_f_1], 
+                  quote=FALSE, sep='\t', row.names = FALSE)
+      #write_xlsx(constructs_df, constructs_fo[constructs_f_1])
     }
   }
   
@@ -152,7 +161,8 @@ get_cell_qualities <- function(plate_ids, cell_quals_f) {
   temp_cell_quals_l <- list()
   
   for (cell_quals_f_1 in seq_along(cell_quals_f)) {
-    cell_quals_df <- read_excel(cell_quals_f[cell_quals_f_1])
+    cell_quals_df <- read.table(file = cell_quals_f[cell_quals_f_1], sep = '\t', header = TRUE)
+    # cell_quals_df <- read_excel(cell_quals_f[cell_quals_f_1])
     temp_cell_quals_l[[plate_ids[cell_quals_f_1]]] <- cell_quals_df$Cell_quality
   }
   
@@ -176,7 +186,8 @@ create_plates <- function(plate_ids, barcode_maps_f) {
   
   for (plate_i in 1:length(plate_ids)) {
     
-    barcodes_for_plate <- read_excel(barcode_maps_f[plate_i], col_names=FALSE)$X__1
+    barcodes_for_plate <- read.table(file = barcode_maps_f[plate_i], sep = '\t', header = FALSE)$X__1
+    # barcodes_for_plate <- read_excel(barcode_maps_f[plate_i], col_names=FALSE)$X__1
     plates[[plate_ids[plate_i]]] <- create_new_plate_from_list(well_alpha, well_numer, "barcode", barcodes_for_plate)
   }
   return(plates)
