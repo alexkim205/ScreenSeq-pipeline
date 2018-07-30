@@ -1,7 +1,7 @@
 # parameters.R 
 ## requires(yaml)
 
-list.of.packages <- c("yaml","rlist","crayon","dplyr")
+list.of.packages <- c("yaml","rlist","crayon","dplyr", "bindrcpp")
 
 #' Read a yaml file
 #'
