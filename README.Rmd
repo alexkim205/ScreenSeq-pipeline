@@ -21,7 +21,7 @@ This pipeline for the ScreenSeq technique was created to make running experiment
 
 Create a local R library somewhere in your scratch folder in the O2 cluster. Preferably you want this in your home directory. Then install the package dependencies in R.
 
-```{bash}
+```{bash eval=FALSE, include=FALSE}
 // make local library
 mkdir ~/tools/R/3.5.1/
 
@@ -31,9 +31,11 @@ mkdir ~/tools/R/3.5.1/
 
 I plan to make this into a package so that the functions can be used modularly, but for now the user will have to open up the `.R` files in the `R/` directory manually.
 
-1. Open up `datamunge.Rproj` with RStudio.
-2. Open the following files: `functions.R`, `main.R`, `make_project.R`, `parameters.R`
-3. Make sure your current working directory is same folder that `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
+
+1. `git clone git@gitlab.com:gimelbrant-lab/ScreenSeq-pipeline.git`
+2. Open up `datamunge.Rproj` with RStudio.
+3. Open the following files: `functions.R`, `main.R`, `make_project.R`, `parameters.R`
+4. Make sure your current working directory is same folder that `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
 
 ### `main.R`
 
