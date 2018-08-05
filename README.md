@@ -15,9 +15,10 @@ Usage
 
 I plan to make this into a package so that the functions can be used modularly, but for now the user will have to open up the `.R` files in the `R/` directory manually.
 
-1.  Open up `datamunge.Rproj` with RStudio.
-2.  Open the following files: `functions.R`, `main.R`, `make_project.R`, `parameters.R`
-3.  Make sure your current working directory is same folder that `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
+1. `git clone git@gitlab.com:gimelbrant-lab/ScreenSeq-pipeline.git`
+2. Open up `datamunge.Rproj` with RStudio.
+3. Open the following files: `functions.R`, `main.R`, `make_project.R`, `parameters.R`
+4. Make sure your current working directory is same folder that `datamunge.Rproj` is in with `getwd()`. Use `setwd()` if otherwise.
 
 ### `main.R`
 
@@ -29,21 +30,6 @@ First grab the parameters and functions:
 source("R/parameters.R")
 source("R/functions.R")
 ```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:data.table':
-    ## 
-    ##     between, first, last
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
 
 **Get Barcodes**
 
